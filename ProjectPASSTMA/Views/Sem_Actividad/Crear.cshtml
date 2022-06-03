@@ -1,0 +1,210 @@
+﻿@model ENTIDAD.SEM_ACTIVIDAD
+@{
+    ViewBag.Title = "Asignación de Actividades";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Asignar Actividad</h2>
+<hr />
+<form action="@Url.Action("Crear", "Sem_Actividad")" method="post" id="frmSEM_ACTIVIDAD" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="IdUUNN" class="control-label col-md-2">Gerencia</label>
+                    <div class="col-md-10">
+                        <select class="form-control" id="IdUUNN" name="IdUUNN">
+                            <option value="">Seleccionar...</option>
+                            <option value="0">Todos</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="IdSEM" class="control-label col-md-2">Jefaturas</label>
+                    <div class="col-md-10" style="height:200px">
+                        <select style="height:inherit" class="form-control" id="IdSEM" name="IdSEM" multiple title="Primero debe seleccionar una Gerencia.">
+                            <option value="">-> SELECCIONE una o varias Jefaturas</option>
+                            <option value="">con un Clic sostenido y arrastre sobre</option>
+                            <option value="">la lista o Ctrl sostenido + Clic</option>
+                            <option value="">sobre uno o varios items de la lista.</option>
+                            <option value="">-> DESELECCIONE de la misma forma </option>
+                            <option value="">sobre los items ya selecionados.</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Cantidad" class="control-label col-md-2">Cantidad</label>
+                    <div class="col-md-10">
+                        <input type="number" class="form-control" step="1" max="99" min="1" id="Cantidad" name="Cantidad" value="1" placeholder="Cantidad" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Comunicado" class="control-label col-md-2">Comunicado</label>
+                    <div class="col-md-10">
+                        <textarea class="form-control" title="Máximo 240 caracteres" style="width:300px;height:80px;" id="Comunicado" maxlength="240" name="Comunicado" placeholder="Anotaciones de comunicado..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="IdTipo" class="control-label col-md-3">Grupos de Actividad</label>
+                    <div class="col-md-9">
+                        <select class="form-control" id="IdTipo" name="IdTipo">
+                            <option value="">Seleccionar...</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="IdActividad" class="control-label col-md-3">Actividad</label>
+                    <div class="col-md-9">
+                        <select class="form-control" id="IdActividad" name="IdActividad" title="Primero seleccione un Grupo de Actividades">
+                            <option value="">Seleccionar...</option>
+                        </select>
+                    </div>
+                </div>
+
+
+
+                <div class="form-group">
+                    <label for="repeticion" class="control-label col-md-3">Repetición</label>
+                    <div class="col-md-9">
+                        <select class="form-control" id="repeticion" name="repeticion">
+                            <option value="1">Mensual</option>
+                            <option value="2">Bimestral</option>
+                            <option value="3">Trimestral</option>
+                            <option value="4">Semestral</option>
+                            <option value="5">Anual</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="cmbmeses" class="control-label col-md-3">Meses</label>
+                    <div class="col-md-9" style="height:220px">
+                        <select style="height:inherit" class="form-control" id="cmbmeses" name="cmbmeses" multiple>
+                            <option value="1">Enero</option>
+                            <option value="2">Febrero</option>
+                            <option value="3">Marzo</option>
+                            <option value="4">Abril</option>
+                            <option value="5">Mayo</option>
+                            <option value="6">Junio</option>
+                            <option value="7">Julio</option>
+                            <option value="8">Agosto</option>
+                            <option value="9">Septiembre</option>
+                            <option value="10">Octubre</option>
+                            <option value="11">Noviembre</option>
+                            <option value="12">Diciembre</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Anio" class="control-label col-md-3">Año</label>
+                    <div class="col-md-9">
+                        <input type="number" class="form-control" step="1" max="2200" min="@DateTime.Now.Year" id="Anio" name="Anio" value="@DateTime.Now.Year" placeholder="Año" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2 col-xs-3">
+                <a class="btn btn-default" href="@Url.Action("Index", "Sem_Actividad")"><i class="glyphicon glyphicon-menu-left"></i>Volver</a>
+            </div>
+
+            <div class="col-md-10 col-xs-9">
+                <input type="submit" value="Crear" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        ObtenerUUNN();
+        ObtenerTipoActividad();
+        $(document).ready(function () {
+            $("#IdUUNN").change(function () {
+                $("#IdSEM").empty();
+                ObtenerSEM_byIdUUNN();
+                $("#IdSEM").querySelectorAll;
+            });
+
+            $("#IdTipo").change(function () {
+                $("#IdActividad").empty();
+                ObtenerActividadByTipo();
+            });
+
+            $("#cmbmeses").val([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
+            $("#repeticion").change(function () {
+                if (this.value == 1)
+                    $("#cmbmeses").val([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
+                else
+                    if (this.value == 2)
+                        $("#cmbmeses").val([2, 4, 6, 8, 10, 12]);
+                    else
+                        if (this.value == 3)
+                            $("#cmbmeses").val([3, 6, 9, 12]);
+                        else
+                            if (this.value == 4)
+                                $("#cmbmeses").val([6, 12]);
+                            else
+                                if (this.value == 5)
+                                    $("#cmbmeses").val([12]);
+            });
+        });
+
+        $("#frmSEM_ACTIVIDAD").submit(function (event) {
+            event.preventDefault(); //evitar la acción predeterminada para que la pagina no se sobrecargue
+            ////AQUÍ LAS VALIDACIONES EN EL CLIENTE   //
+            var act = $("#IdActividad").val();
+            if (act == "") {
+                alert("Seleccione Actividad.");
+                return;
+            }
+            var sem = $("#IdSEM").val();
+            if (sem == "") {
+                alert("Seleccione una o varias Jefaturas.");
+                return;
+            }
+            var cnt = $("#Cantidad").val();
+            if (cnt == "") {
+                alert("Ingrese Cantidad.");
+                return;
+            }
+            var an = $("#Anio").val();
+            if (an == "") {
+                alert("Ingrese Año.");
+                return;
+            }
+
+            var post_url = $(this).attr("action"); //action url del formulario
+            var request_method = $(this).attr("method"); //método GET/POST del formulario
+            var form_data = $(this).serializeArray(); //Codificando elementos de formulario para su envío
+            console.log(form_data);
+            LoadingOverlayShow("#frmSEM_ACTIVIDAD"); /* MOSTRAR estado de carga   */
+            $.ajax({
+                url: post_url,
+                type: request_method,
+                data: form_data
+            }).done(function (response) { //
+                console.log(response);
+                //LoadingOverlayHide("#frmSEM_ACTIVIDAD"); /*   OCULTAR estado de carga   */
+                if (response.ok) {
+                    alert("Actividades asignadas exitosamente.");
+                    window.location = response.toRedirect;
+                }
+                else {
+                    alert(response.msg);
+                }
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                LoadingOverlayHide("#frmSEM_ACTIVIDAD");
+            });
+        });
+
+    </script>
+}

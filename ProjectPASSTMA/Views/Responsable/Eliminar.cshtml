@@ -1,0 +1,103 @@
+﻿@model ENTIDAD.RESPONSABLE
+
+@{
+    ViewBag.Title = "Usuario";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Usuario</h2>
+
+<h3>¿Está seguro de eliminar esto?</h3>
+<div>
+    <h4>Eliminar Usuario</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            ID
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdResponsable)
+        </dd>
+
+        <dt>
+            NOMBRE
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreResponsable)
+        </dd>
+
+        <dt>
+            E-MAIL
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmailResponsable)
+        </dd>
+
+        <dt>
+            ROL
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreRol)
+        </dd>
+
+    </dl>
+
+    <form action="@Url.Action("Eliminar", "Responsable")" method="post" id="frmResponsable">
+
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-12">
+                <input type="submit" value="Eliminar" class="btn btn-danger" />
+            </div>
+        </div>
+        <p>
+            <a class="btn btn-default" href="@Url.Action("Index", "Responsable")"><i class="glyphicon glyphicon-menu-left"></i>Volver</a>
+        </p>
+    </form>
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $("#frmResponsable").submit(function (event) {
+            event.preventDefault(); //evitar la acción predeterminada para que la pagina no se sobrecargue
+
+            var post_url = $(this).attr("action"); //action url del formulario
+            var request_method = $(this).attr("method"); //método GET/POST del formulario
+            var form_data = $(this).serializeArray(); //Codificando elementos de formulario para su envío
+            console.log(form_data);
+            LoadingOverlayShow("#frmResponsable"); /* MOSTRAR estado de carga   */
+            $.ajax({
+                url: post_url,
+                type: request_method,
+                data: form_data
+            }).done(function (response) { //
+                console.log(response);
+                //LoadingOverlayHide("#frmSEM_ACTIVIDAD"); /*   OCULTAR estado de carga   */
+                if (response.ok) {
+                    alert("El Usuario ha sido eliminado.");
+                    window.location = response.toRedirect;
+                }
+                else {
+                    let rsp = response.msg;
+                    let cont = "The DELETE statement conflicted with the REFERENCE constraint";
+                    let trad = "La declaración ELIMINAR entró en conflicto con la restricción 'FK_SEM_RESPONSABLE'.";
+                    if (rsp.includes(cont))
+                        alert("No es posible eliminar este Usuario porque actualmente está relacionado a una Jefatura. \nError: " + trad);
+                    else
+                        alert("EL PROCESO NO PUEDE COMPLETARSE DEBIDO A ESTE ERROR: \n" + rsp);
+                    window.location = response.toRedirect;
+                }
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                LoadingOverlayHide("#frmResponsable");
+            });
+        });
+
+    </script>
+}

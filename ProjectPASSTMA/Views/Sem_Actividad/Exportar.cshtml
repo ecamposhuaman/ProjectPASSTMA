@@ -1,0 +1,71 @@
+﻿@model ENTIDAD.SEM_ACTIVIDAD
+@{
+    ViewBag.Title = "Exportar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Exportar</h2>
+
+<form action="@Url.Action("Exportar", "Sem_Actividad")" method="post" id="frmSEM_ACTIVIDAD" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <h4>Exportar PASSTMA a Excel</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            <label for="IdUUNN" class="control-label col-md-2">Gerencia</label>
+            <div class="col-md-10">
+                <select class="form-control" id="IdUUNN" name="IdUUNN">
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Anio" class="control-label col-md-2">Año</label>
+            <div class="col-md-10">
+                <input type="number" class="form-control" step="1" max="2200" min="2020" id="Anio" name="Anio" value="@DateTime.Now.Year" placeholder="Año" />
+            </div>
+        </div>
+        @*<div class="form-group">
+            <label for="IdSEM" class=" col-md-12 text-left">Jefaturas</label>
+            <div class="col-md-12" style="height:200px">
+                <select style="height:inherit" class="form-control" id="IdSEM" name="IdSEM" multiple>
+                    <option value="">Seleccionar...</option>
+                </select>
+            </div>
+        </div>*@
+
+
+        @*<div class="form-group">
+            <label for="Comunicado" class="control-label col-md-6">Comunicado</label>
+            <div class="col-md-6">
+                <textarea class="form-control" title="Máximo 240 caracteres" style="width:300px;height:80px;" id="Comunicado" maxlength="240" name="Comunicado" placeholder="Anotaciones de comunicado..."></textarea>
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-12">
+                <input type="submit" value="Exportar" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+
+
+</form>
+
+<div>
+    <hr />
+
+    <a class="btn btn-default" href="@Url.Action("Index", "Sem_Actividad")"><i class="glyphicon glyphicon-menu-left"></i>Volver</a>
+</div>
+@section Scripts {
+    <script>
+
+        ObtenerUUNN();
+
+
+    </script>
+}
+
+
+

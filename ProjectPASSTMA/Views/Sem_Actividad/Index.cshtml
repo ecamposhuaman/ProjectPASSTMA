@@ -1,0 +1,153 @@
+﻿@model IEnumerable<ENTIDAD.SEM_ACTIVIDADCE>
+
+@{
+    ViewBag.Title = "Asignación de Actividades";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+
+<input id="username" type="hidden" value="@User.Identity.Name" />
+<div class="form-horizontal">
+    <div class="col-md-4" style="padding-left:0">
+        <h2>Actividades Programadas</h2>
+        <h4>PASSTMA @DateTime.Now.Year</h4>
+    </div>
+    <div class="col-md-8" style="margin-top:20px">
+
+        <div class="col-md-12 jumbotron" style="padding:0;">
+
+            <form action="@Url.Action("Index", "Sem_Actividad")" method="post">
+                @Html.AntiForgeryToken()
+                <div class="form-horizontal panel-heading">
+                    <div class="col-md-6 form-group">
+                        <label for="IdSEM" class="col-md-3">Jefatura</label>
+                        <div class="col-md-9">
+                            <select class="form-control" id="IdSEM" name="IdSEM">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-5 form-group">
+                        <label for="cmbmeses" class="col-md-4">Periodo</label>
+                        <div class="col-md-8">
+                            <select class="form-control" style="width:140px" id="cmbmeses" name="cmbmeses">
+                                <option value="1">Enero</option>
+                                <option value="2">Febrero</option>
+                                <option value="3">Marzo</option>
+                                <option value="4">Abril</option>
+                                <option value="5">Mayo</option>
+                                <option value="6">Junio</option>
+                                <option value="7">Julio</option>
+                                <option value="8">Agosto</option>
+                                <option value="9">Septiembre</option>
+                                <option value="10">Octubre</option>
+                                <option value="11">Noviembre</option>
+                                <option value="12">Diciembre</option>
+                                <option value="13">TODOS</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                            <input id="Filtrar" type="submit" name="Filtrar" value="Aplicar Filtro" class="btn btn-info" />
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+@*<a class="btn btn-danger pull-right" href="@Url.Action("Exportar", "Sem_Actividad")"><i class="glyphicon glyphicon-download-alt"></i> Exportar a Excel</a>*@
+
+<table class="table" id="tblSem_Actividad">
+    <thead>
+        <tr>
+            <th>
+                Periodo
+            </th>
+            <th>
+                Jefatura
+            </th>
+            <th>
+                Actividad
+            </th>
+            <th>
+                Cant.
+            </th>
+            <th>
+                Formato
+            </th>
+            <th>
+                Estado
+            </th>
+            <th>
+                Informe
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Periodo
+                </td>
+                <td style="max-width:140px">
+                    @item.NombreSEM
+                </td>
+                <td style="max-width:170px">
+                    @item.NombreActividad
+                </td>
+                <td>
+                    @item.Cantidad
+                </td>
+                <td>
+                    @Html.ActionLink(item.NombreFormato.IsEmpty() ? " " : item.NombreFormato, "DescargarFormato", "Formato", new { NomArchivo = item.NombreFormato.ToString() }, new { title = item.NombreFormato.ToString(), target = "_blank" })
+                </td>
+                <td>
+                    @item.NombreEstado
+                </td>
+                <td>
+                    @Html.ActionLink(item.NombreInforme.IsEmpty() ? " " : "Ver", "DescargarInforme", new { NomArchivo = item.NombreInforme.ToString() }, new { title = item.NombreInforme.ToString(), target = "_blank" })
+                </td>
+                <td>
+                    <a class="btn btn-primary" href="@Url.Action("Detalle", "Sem_Actividad", new { id = item.IdSEMACT })" title="Detalle"><i class="glyphicon glyphicon-zoom-in"></i></a>
+                    <a class="btn btn-success" href="@Url.Action("CerrarAsignacion", "Sem_Actividad", new { id = item.IdSEMACT })" target="_blank" title="Enviar Informe">Ejecutar <i class="glyphicon glyphicon-check"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+@*<a class="btn btn-danger" href="@Url.Action("CerrarAsignacionesss", "Sem_Actividad")" title="Cerrar Asignaciones">Cerrar Asignaciones</a>*@
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        ObtenerSEM_By_User(function (result) {
+            var IdSEM = '@TempData["IdSEM"]';
+            var mes = '@TempData["mes"]';
+
+            if (IdSEM != 0)
+                $("#IdSEM").val(IdSEM);
+            else
+                $("#IdSEM")[0].selectedIndex = 0;
+
+            const fecha = new Date();
+            if (mes != 0)
+                $("#cmbmeses").val(mes);
+            else
+                $("#cmbmeses").val(fecha.getMonth());
+        });
+
+
+        $('#tblSem_Actividad').DataTable({
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json',
+            },
+            "pageLength": 25,
+        });
+
+    </script>
+}

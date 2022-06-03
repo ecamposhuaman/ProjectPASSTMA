@@ -1,0 +1,61 @@
+﻿@model ProjectPASSTMA.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Registrarse";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Cree una cuenta nueva.</h4>
+    <h5>La próxima vez unicamente iniciará sesión utilizando el <span class="label label-primary">Nombre de usuario</span> y <span class="label label-primary">Contraseña</span> registrados en esta sección.</h5>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        </div>
+    </div>
+    <hr />
+    <div class="form-group">
+        @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @id = "txtnom" })
+            <h6 id="msge" hidden>Puede hacer uso de calquier nombre o hasta el mismo correo electrónico. Este dato es personal y no será utilizado en reporte o informe alguno.</h6>
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Registrarse" />
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        document.getElementById("txtnom").addEventListener("mouseover", mouseOver);
+        document.getElementById("txtnom").addEventListener("mouseout", mouseOut);
+        function mouseOver() {
+            $("#msge").removeAttr('hidden');
+        }
+        function mouseOut() {
+            $("#msge").attr('hidden', 'hidden');
+        }
+    </script>
+}

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ENTIDAD.FORMATO>
+
+@{
+    ViewBag.Title = "Formatos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Formatos</h2>
+<p>
+    <a class="btn btn-success" href="@Url.Action("Crear", "Formato")"><i class="glyphicon glyphicon-plus"></i>Crear Nuevo</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            ID
+        </th>
+        <th>
+            NOMBRE
+        </th>
+        <th>
+            DESCRIPCIÓN
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @item.IdFormato
+    </td>
+    <td>
+        @Html.ActionLink(item.NombreFormato, "DescargarFormato", "Formato", new { NomArchivo = item.NombreFormato.ToString() }, new { title = item.NombreFormato.ToString(), target = "_blank" })
+    </td>
+    <td>
+        @item.Descripcion
+    </td>
+    <td>
+        <a class="btn btn-primary btn-xs" href="@Url.Action("Editar", "Formato", new { id = item.IdFormato })" title="Editar"><i class="glyphicon glyphicon-pencil"></i></a>
+        <a class="btn btn-danger btn-xs" href="@Url.Action("Eliminar", "Formato", new { id = item.IdFormato })" title="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
+    </td>
+</tr>
+    }
+
+</table>
+

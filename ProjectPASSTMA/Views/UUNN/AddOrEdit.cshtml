@@ -1,0 +1,44 @@
+﻿@model ENTIDAD.UUNN
+@{
+    ViewBag.Title = "AddOrEdit";
+    Layout = null;/*"~/Views/Shared/_Layout.cshtml";*/
+}
+
+<h2>AddOrEdit</h2>
+
+<form action="@Url.Action("AddOrEdit", "UUNN")" method="post" id="frmUUNN" onsubmit="return SubmitForm(this)" >
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <h4>Crear Nueva SE/GERENCIA</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.IdUUNN)
+
+        <div class="form-group">
+            <label for="NombreUUNN" class="control-label col-md-2">Nombre</label>
+            <div class="col-md-10">
+                <input type="text" id="NombreUUNN" name="NombreUUNN" placeholder="Ingrese Nombre de UUNN" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="IdSEDE" class="control-label col-md-2">UN/SEM</label>
+            <div class="col-md-10">
+                <select class="form-control" id="IdSEDE" name="IdSEDE">
+                    <option value="">Seleccionar...</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Guardar" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a class="btn btn-default" href="@Url.Action("Index", "UUNN")"><i class="glyphicon glyphicon-menu-left"></i>Volver</a>
+</div>
+

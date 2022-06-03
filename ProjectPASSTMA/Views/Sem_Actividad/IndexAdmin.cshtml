@@ -1,0 +1,154 @@
+﻿@model IEnumerable<ENTIDAD.SEM_ACTIVIDADCE>
+
+@{
+    ViewBag.Title = "Asignación de Actividades";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<h2>Asignación de Actividades</h2>
+<input id="username" type="hidden" value="@User.Identity.Name" />
+
+<div class="form-horizontal">
+    <div class="col-md-4" style="padding-top:8px; padding-left:0;">
+        @*<a id="btnCrearNuevo" class="btn btn-success" data-toggle="modal" href="#modalSemAct"><i class="glyphicon glyphicon-plus"></i>Crear Nuevo</a>*@
+        <a id="btnCrearNuevo" class="btn btn-success btn-lg" href="@Url.Action("Crear", "Sem_Actividad")"><i class="glyphicon glyphicon-plus"></i>Crear Nuevo</a>
+    </div>
+    <div class="col-md-8 jumbotron" style="padding:0;">
+
+        <form action="@Url.Action("Index", "Sem_Actividad")" method="post">
+            @Html.AntiForgeryToken()
+            <div class="form-horizontal panel-heading">
+                <div class="col-md-6 form-group">
+                    <label for="IdSEM" class="col-md-3">Jefatura</label>
+                    <div class="col-md-9">
+                        <select class="form-control" id="IdSEM" name="IdSEM">
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-5 form-group">
+                    <label for="cmbmeses" class="col-md-4">Periodo</label>
+                    <div class="col-md-8">
+                        <select class="form-control" style="width:140px" id="cmbmeses" name="cmbmeses">
+                            <option value="1">Enero</option>
+                            <option value="2">Febrero</option>
+                            <option value="3">Marzo</option>
+                            <option value="4">Abril</option>
+                            <option value="5">Mayo</option>
+                            <option value="6">Junio</option>
+                            <option value="7">Julio</option>
+                            <option value="8">Agosto</option>
+                            <option value="9">Septiembre</option>
+                            <option value="10">Octubre</option>
+                            <option value="11">Noviembre</option>
+                            <option value="12">Diciembre</option>
+                            <option value="13">TODOS</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <input id="Filtrar" type="submit" name="Filtrar" value="Aplicar Filtro" class="btn btn-info" />
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<table class="table" id="tblSem_Actividad">
+    <thead>
+        <tr>
+            <th>
+                Periodo
+            </th>
+            <th>
+                Jefatura
+            </th>
+            <th>
+                Actividad
+            </th>
+            <th>
+                Cant.
+            </th>
+            <th>
+                Estado
+            </th>
+            <th>
+                Informe
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Periodo
+                </td>
+                <td style="max-width:120px">
+                    @item.NombreSEM
+                </td>
+                <td style="max-width:150px">
+                    @item.NombreActividad
+                </td>
+                <td>
+                    @item.Cantidad
+                </td>
+                <td style="font-style:italic">
+                    @item.NombreEstado
+                </td>
+                <td>
+                    @Html.ActionLink(item.NombreInforme.IsEmpty() ? " " : "Informe", "DescargarInforme", new { NomArchivo = item.NombreInforme.ToString() }, new { title = item.NombreInforme.ToString(), target = "_blank" })
+                </td>
+                <td>
+                    <a class="btn btn-info btn-xs" href="@Url.Action("Detalle", "Sem_Actividad", new { id = item.IdSEMACT })" title="Detalle"><i class="glyphicon glyphicon-zoom-in"></i></a>
+                    <a class="btn btn-primary btn-xs" href="@Url.Action("Editar", "Sem_Actividad", new { id = item.IdSEMACT })" title="Editar"><i class="glyphicon glyphicon-pencil"></i></a>
+                    <a class="btn btn-danger btn-xs" href="@Url.Action("Eliminar", "Sem_Actividad", new { id = item.IdSEMACT })" title="Eliminar"><i class="glyphicon glyphicon-trash"></i></a> &nbsp;&nbsp;
+                    <a class="btn btn-primary btn-xs" href="@Url.Action("CerrarAsignacion", "Sem_Actividad", new { id = item.IdSEMACT })" target="_blank" title="Ejecutar"><i class="glyphicon glyphicon-check"></i></a>
+                    @*<a class="btn btn-success btn-xs" href="@Url.Action("Aceptar", "Sem_Actividad", new { id = item.IdSEMACT })" title="Aceptar"><i class="glyphicon glyphicon-ok"></i></a>
+                        <a class="btn btn-danger btn-xs" href="@Url.Action("Rechazar", "Sem_Actividad", new { id = item.IdSEMACT })" title="Rechazar"><i class="glyphicon glyphicon-exclamation-sign"></i></a>*@
+                    <a class="btn btn-warning btn-xs" href="@Url.Action("Revisar", "Sem_Actividad", new { id = item.IdSEMACT })" target="_blank" title="Revisar"><i class="glyphicon glyphicon-record"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        ObtenerSEM_By_User(function (result) {
+            var IdSEM = '@TempData["IdSEM"]';
+            var cmbmes = '@TempData["mes"]';
+
+            if (IdSEM != 0)
+                $("#IdSEM").val(IdSEM);
+            else
+                $("#IdSEM")[0].selectedIndex = 0;
+
+            var d = new Date();
+            var mes = d.getMonth() + 1;
+            var dia = d.getDate();
+            if (cmbmes != 0)
+                $("#cmbmeses").val(cmbmes);
+            else {
+                if (dia > 5)
+                    $("#cmbmeses").val(mes);
+                else
+                    $("#cmbmeses").val(mes - 1);
+            }
+        });
+
+
+        $('#tblSem_Actividad').DataTable({
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json',
+            },
+            "pageLength": 25,
+        });
+
+    </script>
+}

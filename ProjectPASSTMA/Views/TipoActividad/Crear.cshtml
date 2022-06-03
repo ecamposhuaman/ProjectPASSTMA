@@ -1,0 +1,69 @@
+﻿@model ENTIDAD.TIPOACTIVIDAD
+
+@{
+    ViewBag.Title = "Grupo de Actividades";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Grupo de Actividades</h2>
+<form action="@Url.Action("Crear", "TipoActividad")" method="post" id="frmTipoActividad">
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Crear Nuevo Grupo de Actividades</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label for="NombreTipo" class="control-label col-md-2">Nombre</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" id="NombreTipo" name="NombreTipo" placeholder="Ingrese Nombre de Grupo de Actividades" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Crear" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a class="btn btn-default" href="@Url.Action("Index", "TipoActividad")"><i class="glyphicon glyphicon-menu-left"></i>Volver</a>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $("#frmTipoActividad").submit(function (event) {
+            event.preventDefault();
+            var nombre = $("#NombreTipo").val();
+            if ($.trim(nombre) == "") {
+                alert("Ingrese Nombre de Grupo de Actividades");
+                return;
+            }
+
+            var post_url = $(this).attr("action"); //action url del formulario
+            var request_method = $(this).attr("method"); //método GET/POST del formulario
+            var form_data = $(this).serializeArray(); //Codificando elementos de formulario para su envío
+            console.log(form_data);
+            LoadingOverlayShow("#frmTipoActividad"); /* MOSTRAR estado de carga   */
+            $.ajax({
+                url: post_url,
+                type: request_method,
+                data: form_data
+            }).done(function (response) { //
+                console.log(response);
+                LoadingOverlayHide("#frmTipoActividad"); /*   OCULTAR estado de carga   */
+                if (response.ok) {
+                    alert("Grupo de Actividades creado correctamente.");
+                    window.location = response.toRedirect;
+                }
+                else {
+                    alert(response.msg);
+                }
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                LoadingOverlayHide("#frmTipoActividad");
+            });
+        });
+
+    </script>
+}

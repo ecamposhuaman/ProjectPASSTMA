@@ -1,0 +1,95 @@
+﻿@model ENTIDAD.UUNNCE
+
+@{
+    ViewBag.Title = "SE/GERENCIA";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>SE/GERENCIA</h2>
+
+<h3>¿Está seguro de eliminar esto?</h3>
+<div>
+    <h4>Eliminar SE/GERENCIA</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            ID
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdUUNN)
+        </dd>
+
+        <dt>
+            Nombre
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreUUNN)
+        </dd>
+
+        <dt>
+            UN/SEM
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreSEDE)
+        </dd>
+
+    </dl>
+
+    <form action="@Url.Action("Eliminar", "UUNN")" method="post" id="frmUUNN">
+
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-12">
+                <input type="submit" value="Eliminar" class="btn btn-danger" />
+            </div>
+        </div>
+        <p>
+            <a class="btn btn-default" href="@Url.Action("Index", "UUNN")"><i class="glyphicon glyphicon-menu-left"></i>Volver</a>
+        </p>
+    </form>
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $("#frmUUNN").submit(function (event) {
+            event.preventDefault(); //evitar la acción predeterminada para que la pagina no se sobrecargue
+
+            var post_url = $(this).attr("action"); //action url del formulario
+            var request_method = $(this).attr("method"); //método GET/POST del formulario
+            var form_data = $(this).serializeArray(); //Codificando elementos de formulario para su envío
+            console.log(form_data);
+            LoadingOverlayShow("#frmUUNN"); /* MOSTRAR estado de carga   */
+            $.ajax({
+                url: post_url,
+                type: request_method,
+                data: form_data
+            }).done(function (response) { //
+                console.log(response);
+                //LoadingOverlayHide("#frmSEM_ACTIVIDAD"); /*   OCULTAR estado de carga   */
+                if (response.ok) {
+                    alert("La SE/Gerencia ha sido eliminada.");
+                    window.location = response.toRedirect;
+                }
+                else {
+                    let rsp = response.msg;
+                    let cont = "The DELETE statement conflicted with the REFERENCE constraint";
+                    let trad = "La declaración ELIMINAR entró en conflicto con la restricción 'FK_SEM_UUNN'.";
+                    if (rsp.includes(cont))
+                        alert("No es posible eliminar esta SE/Gerencia porque actualmente está relacionada a una Jefatura. \nError: " + trad);
+                    else
+                        alert("EL PROCESO NO PUEDE COMPLETARSE DEBIDO A ESTE ERROR: \n" + rsp);
+                    window.location = response.toRedirect;
+                }
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                LoadingOverlayHide("#frmUUNN");
+            });
+        });
+
+    </script>
+}

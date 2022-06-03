@@ -1,0 +1,43 @@
+﻿@model ENTIDAD.UUNNCE
+
+@{
+    ViewBag.Title = "SE/GERENCIA";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>SE/GERENCIA</h2>
+
+<div>
+    <h4>Detalle de SE/GERENCIA</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            ID
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdUUNN)
+        </dd>
+
+        <dt>
+            NOMBRE
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreUUNN)
+        </dd>
+
+        <dt>
+            UN/SEM
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreSEDE)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <a class="btn btn-default" href="@Url.Action("Index", "UUNN")"><i class="glyphicon glyphicon-menu-left"></i>Volver</a>
+    <a class="btn btn-info" href="@Url.Action("Editar", "UUNN", new { id = Model.IdUUNN })">Editar</a>
+</p>

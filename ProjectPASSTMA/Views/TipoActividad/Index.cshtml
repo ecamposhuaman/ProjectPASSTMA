@@ -1,0 +1,39 @@
+﻿@model IEnumerable<ENTIDAD.TIPOACTIVIDAD>
+
+@{
+    ViewBag.Title = "Grupo de Actividades";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Grupo de Actividades</h2>
+
+<p>
+    <a class="btn btn-success" href="@Url.Action("Crear", "TipoActividad")"><i class="glyphicon glyphicon-plus"></i>Crear Nuevo</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            ID
+        </th>
+        <th>
+            NOMBRE
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @item.IdTipo
+        </td>
+        <td>
+            @item.NombreTipo
+        </td>
+        <td>
+            <a class="btn btn-primary btn-xs" href="@Url.Action("Editar", "TipoActividad", new { id = item.IdTipo })" title="Editar"><i class="glyphicon glyphicon-pencil"></i></a>
+            <a class="btn btn-danger btn-xs" href="@Url.Action("Eliminar", "TipoActividad", new { id = item.IdTipo })" title="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
+        </td>
+    </tr>
+}
+
+</table>

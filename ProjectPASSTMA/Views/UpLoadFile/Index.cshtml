@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-success" role="alert">
+        @ViewBag.Message
+    </div>
+}
+
+@using (Html.BeginForm("Index", "UpLoadFile", FormMethod.Post,
+    new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken();
+    <div class="row">
+        <div class="col-md-6 col-lg-offset-3">
+            <div class="form-group">
+                <label for="Archivo">ARCHIVO</label>
+                <input type="file" id="Archivo1" name="Archivo" class="form-control" accept=".pdf"/>
+            </div>
+
+            @*<div class="form-group">
+                @Html.LabelFor(d => d.Cadena)
+                @Html.TextBoxFor(d => d.Cadena, new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.Cadena, "", new { @class = "text-danger" })
+
+            </div>*@
+            <div class="form-group" style="text-align:right;">
+                <input type="submit" class="btn btn-success" value="Guardar">
+            </div>
+
+        </div>
+    </div>
+}

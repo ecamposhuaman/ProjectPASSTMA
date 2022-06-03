@@ -1,0 +1,1022 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DBPASSTMAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ACTIVIDAD">
+          <Key>
+            <PropertyRef Name="IdActividad" />
+          </Key>
+          <Property Name="IdActividad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreActividad" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="IdTipo" Type="int" Nullable="false" />
+          <Property Name="IdFormato" Type="int" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ESTADO">
+          <Key>
+            <PropertyRef Name="IdEstado" />
+          </Key>
+          <Property Name="IdEstado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreEstado" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FORMATO">
+          <Key>
+            <PropertyRef Name="IdFormato" />
+          </Key>
+          <Property Name="IdFormato" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreFormato" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="INFORME">
+          <Key>
+            <PropertyRef Name="IdInforme" />
+          </Key>
+          <Property Name="IdInforme" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreInforme" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="RESPONSABLE">
+          <Key>
+            <PropertyRef Name="IdResponsable" />
+          </Key>
+          <Property Name="IdResponsable" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreResponsable" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="EmailResponsable" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="IdAspNetUser" Type="nvarchar" MaxLength="128" />
+          <Property Name="NombreRol" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="SEDE">
+          <Key>
+            <PropertyRef Name="IdSEDE" />
+          </Key>
+          <Property Name="IdSEDE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreSEDE" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SEM">
+          <Key>
+            <PropertyRef Name="IdSEM" />
+          </Key>
+          <Property Name="IdSEM" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreSEM" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="IdUUNN" Type="int" Nullable="false" />
+          <Property Name="IdResponsable" Type="int" Nullable="false" />
+          <Property Name="EsPrincipal" Type="char" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SEM_ACTIVIDAD">
+          <Key>
+            <PropertyRef Name="IdSEMACT" />
+          </Key>
+          <Property Name="IdSEMACT" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdSEM" Type="int" Nullable="false" />
+          <Property Name="IdActividad" Type="int" Nullable="false" />
+          <Property Name="Periodo" Type="int" Nullable="false" />
+          <Property Name="IdEstado" Type="int" Nullable="false" />
+          <Property Name="IdInforme" Type="int" Nullable="false" />
+          <Property Name="FEjec" Type="datetime" />
+          <Property Name="IdRevisor" Type="int" />
+          <Property Name="Cantidad" Type="int" />
+          <Property Name="Comunicado" Type="varchar" MaxLength="250" />
+          <Property Name="Observacion" Type="varchar" MaxLength="250" />
+          <Property Name="Anio" Type="int" />
+        </EntityType>
+        <EntityType Name="SETTINGS">
+          <Key>
+            <PropertyRef Name="IdSetting" />
+          </Key>
+          <Property Name="IdSetting" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreSetting" Type="varchar" MaxLength="250" />
+          <Property Name="Estado" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TIPOACTIVIDAD">
+          <Key>
+            <PropertyRef Name="IdTipo" />
+          </Key>
+          <Property Name="IdTipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreTipo" Type="varchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UUNN">
+          <Key>
+            <PropertyRef Name="IdUUNN" />
+          </Key>
+          <Property Name="IdUUNN" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreUUNN" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdSEDE" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ACTIVIDAD_FORMATO">
+          <End Role="FORMATO" Type="Self.FORMATO" Multiplicity="0..1" />
+          <End Role="ACTIVIDAD" Type="Self.ACTIVIDAD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FORMATO">
+              <PropertyRef Name="IdFormato" />
+            </Principal>
+            <Dependent Role="ACTIVIDAD">
+              <PropertyRef Name="IdFormato" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACTIVIDAD_TIPOACTIVIDAD">
+          <End Role="TIPOACTIVIDAD" Type="Self.TIPOACTIVIDAD" Multiplicity="1" />
+          <End Role="ACTIVIDAD" Type="Self.ACTIVIDAD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPOACTIVIDAD">
+              <PropertyRef Name="IdTipo" />
+            </Principal>
+            <Dependent Role="ACTIVIDAD">
+              <PropertyRef Name="IdTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RESPONSABLE_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="RESPONSABLE" Type="Self.RESPONSABLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RESPONSABLE">
+              <PropertyRef Name="IdAspNetUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SEM_ACTIVIDAD_ACTIVIDAD">
+          <End Role="ACTIVIDAD" Type="Self.ACTIVIDAD" Multiplicity="1" />
+          <End Role="SEM_ACTIVIDAD" Type="Self.SEM_ACTIVIDAD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACTIVIDAD">
+              <PropertyRef Name="IdActividad" />
+            </Principal>
+            <Dependent Role="SEM_ACTIVIDAD">
+              <PropertyRef Name="IdActividad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SEM_ACTIVIDAD_ESTADO">
+          <End Role="ESTADO" Type="Self.ESTADO" Multiplicity="1" />
+          <End Role="SEM_ACTIVIDAD" Type="Self.SEM_ACTIVIDAD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ESTADO">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="SEM_ACTIVIDAD">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SEM_ACTIVIDAD_INFORME">
+          <End Role="INFORME" Type="Self.INFORME" Multiplicity="1" />
+          <End Role="SEM_ACTIVIDAD" Type="Self.SEM_ACTIVIDAD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="INFORME">
+              <PropertyRef Name="IdInforme" />
+            </Principal>
+            <Dependent Role="SEM_ACTIVIDAD">
+              <PropertyRef Name="IdInforme" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SEM_ACTIVIDAD_SEM1">
+          <End Role="SEM" Type="Self.SEM" Multiplicity="1" />
+          <End Role="SEM_ACTIVIDAD" Type="Self.SEM_ACTIVIDAD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SEM">
+              <PropertyRef Name="IdSEM" />
+            </Principal>
+            <Dependent Role="SEM_ACTIVIDAD">
+              <PropertyRef Name="IdSEM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SEM_RESPONSABLE">
+          <End Role="RESPONSABLE" Type="Self.RESPONSABLE" Multiplicity="1" />
+          <End Role="SEM" Type="Self.SEM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RESPONSABLE">
+              <PropertyRef Name="IdResponsable" />
+            </Principal>
+            <Dependent Role="SEM">
+              <PropertyRef Name="IdResponsable" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SEM_UUNN">
+          <End Role="UUNN" Type="Self.UUNN" Multiplicity="1" />
+          <End Role="SEM" Type="Self.SEM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UUNN">
+              <PropertyRef Name="IdUUNN" />
+            </Principal>
+            <Dependent Role="SEM">
+              <PropertyRef Name="IdUUNN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UUNN_SEDE">
+          <End Role="SEDE" Type="Self.SEDE" Multiplicity="1" />
+          <End Role="UUNN" Type="Self.UUNN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SEDE">
+              <PropertyRef Name="IdSEDE" />
+            </Principal>
+            <Dependent Role="UUNN">
+              <PropertyRef Name="IdSEDE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBPASSTMAModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ACTIVIDAD" EntityType="Self.ACTIVIDAD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ESTADO" EntityType="Self.ESTADO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FORMATO" EntityType="Self.FORMATO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="INFORME" EntityType="Self.INFORME" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RESPONSABLE" EntityType="Self.RESPONSABLE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SEDE" EntityType="Self.SEDE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SEM" EntityType="Self.SEM" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SEM_ACTIVIDAD" EntityType="Self.SEM_ACTIVIDAD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SETTINGS" EntityType="Self.SETTINGS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TIPOACTIVIDAD" EntityType="Self.TIPOACTIVIDAD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UUNN" EntityType="Self.UUNN" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ACTIVIDAD_FORMATO" Association="Self.FK_ACTIVIDAD_FORMATO">
+            <End Role="FORMATO" EntitySet="FORMATO" />
+            <End Role="ACTIVIDAD" EntitySet="ACTIVIDAD" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACTIVIDAD_TIPOACTIVIDAD" Association="Self.FK_ACTIVIDAD_TIPOACTIVIDAD">
+            <End Role="TIPOACTIVIDAD" EntitySet="TIPOACTIVIDAD" />
+            <End Role="ACTIVIDAD" EntitySet="ACTIVIDAD" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RESPONSABLE_AspNetUsers" Association="Self.FK_RESPONSABLE_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="RESPONSABLE" EntitySet="RESPONSABLE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SEM_ACTIVIDAD_ACTIVIDAD" Association="Self.FK_SEM_ACTIVIDAD_ACTIVIDAD">
+            <End Role="ACTIVIDAD" EntitySet="ACTIVIDAD" />
+            <End Role="SEM_ACTIVIDAD" EntitySet="SEM_ACTIVIDAD" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SEM_ACTIVIDAD_ESTADO" Association="Self.FK_SEM_ACTIVIDAD_ESTADO">
+            <End Role="ESTADO" EntitySet="ESTADO" />
+            <End Role="SEM_ACTIVIDAD" EntitySet="SEM_ACTIVIDAD" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SEM_ACTIVIDAD_INFORME" Association="Self.FK_SEM_ACTIVIDAD_INFORME">
+            <End Role="INFORME" EntitySet="INFORME" />
+            <End Role="SEM_ACTIVIDAD" EntitySet="SEM_ACTIVIDAD" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SEM_ACTIVIDAD_SEM1" Association="Self.FK_SEM_ACTIVIDAD_SEM1">
+            <End Role="SEM" EntitySet="SEM" />
+            <End Role="SEM_ACTIVIDAD" EntitySet="SEM_ACTIVIDAD" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SEM_RESPONSABLE" Association="Self.FK_SEM_RESPONSABLE">
+            <End Role="RESPONSABLE" EntitySet="RESPONSABLE" />
+            <End Role="SEM" EntitySet="SEM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SEM_UUNN" Association="Self.FK_SEM_UUNN">
+            <End Role="UUNN" EntitySet="UUNN" />
+            <End Role="SEM" EntitySet="SEM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UUNN_SEDE" Association="Self.FK_UUNN_SEDE">
+            <End Role="SEDE" EntitySet="SEDE" />
+            <End Role="UUNN" EntitySet="UUNN" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBPASSTMAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="PASSTMAContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="DBPASSTMAModel.C__MigrationHistory" />
+          <EntitySet Name="ACTIVIDAD" EntityType="DBPASSTMAModel.ACTIVIDAD" />
+          <EntitySet Name="AspNetRoles" EntityType="DBPASSTMAModel.AspNetRoles" />
+          <EntitySet Name="AspNetUserClaims" EntityType="DBPASSTMAModel.AspNetUserClaims" />
+          <EntitySet Name="AspNetUserLogins" EntityType="DBPASSTMAModel.AspNetUserLogins" />
+          <EntitySet Name="AspNetUsers" EntityType="DBPASSTMAModel.AspNetUsers" />
+          <EntitySet Name="ESTADO" EntityType="DBPASSTMAModel.ESTADO" />
+          <EntitySet Name="FORMATO" EntityType="DBPASSTMAModel.FORMATO" />
+          <EntitySet Name="INFORME" EntityType="DBPASSTMAModel.INFORME" />
+          <EntitySet Name="RESPONSABLE" EntityType="DBPASSTMAModel.RESPONSABLE" />
+          <EntitySet Name="SEDE" EntityType="DBPASSTMAModel.SEDE" />
+          <EntitySet Name="SEM" EntityType="DBPASSTMAModel.SEM" />
+          <EntitySet Name="TIPOACTIVIDAD" EntityType="DBPASSTMAModel.TIPOACTIVIDAD" />
+          <EntitySet Name="UUNN" EntityType="DBPASSTMAModel.UUNN" />
+          <AssociationSet Name="FK_ACTIVIDAD_FORMATO" Association="DBPASSTMAModel.FK_ACTIVIDAD_FORMATO">
+            <End Role="FORMATO" EntitySet="FORMATO" />
+            <End Role="ACTIVIDAD" EntitySet="ACTIVIDAD" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACTIVIDAD_TIPOACTIVIDAD" Association="DBPASSTMAModel.FK_ACTIVIDAD_TIPOACTIVIDAD">
+            <End Role="TIPOACTIVIDAD" EntitySet="TIPOACTIVIDAD" />
+            <End Role="ACTIVIDAD" EntitySet="ACTIVIDAD" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="DBPASSTMAModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="DBPASSTMAModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RESPONSABLE_AspNetUsers" Association="DBPASSTMAModel.FK_RESPONSABLE_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="RESPONSABLE" EntitySet="RESPONSABLE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SEM_RESPONSABLE" Association="DBPASSTMAModel.FK_SEM_RESPONSABLE">
+            <End Role="RESPONSABLE" EntitySet="RESPONSABLE" />
+            <End Role="SEM" EntitySet="SEM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UUNN_SEDE" Association="DBPASSTMAModel.FK_UUNN_SEDE">
+            <End Role="SEDE" EntitySet="SEDE" />
+            <End Role="UUNN" EntitySet="UUNN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SEM_UUNN" Association="DBPASSTMAModel.FK_SEM_UUNN">
+            <End Role="UUNN" EntitySet="UUNN" />
+            <End Role="SEM" EntitySet="SEM" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="DBPASSTMAModel.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="SEM_ACTIVIDAD" EntityType="DBPASSTMAModel.SEM_ACTIVIDAD" />
+          <EntitySet Name="SETTINGS" EntityType="DBPASSTMAModel.SETTINGS" />
+          <AssociationSet Name="FK_SEM_ACTIVIDAD_ACTIVIDAD" Association="DBPASSTMAModel.FK_SEM_ACTIVIDAD_ACTIVIDAD">
+            <End Role="ACTIVIDAD" EntitySet="ACTIVIDAD" />
+            <End Role="SEM_ACTIVIDAD" EntitySet="SEM_ACTIVIDAD" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SEM_ACTIVIDAD_ESTADO" Association="DBPASSTMAModel.FK_SEM_ACTIVIDAD_ESTADO">
+            <End Role="ESTADO" EntitySet="ESTADO" />
+            <End Role="SEM_ACTIVIDAD" EntitySet="SEM_ACTIVIDAD" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SEM_ACTIVIDAD_INFORME" Association="DBPASSTMAModel.FK_SEM_ACTIVIDAD_INFORME">
+            <End Role="INFORME" EntitySet="INFORME" />
+            <End Role="SEM_ACTIVIDAD" EntitySet="SEM_ACTIVIDAD" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SEM_ACTIVIDAD_SEM1" Association="DBPASSTMAModel.FK_SEM_ACTIVIDAD_SEM1">
+            <End Role="SEM" EntitySet="SEM" />
+            <End Role="SEM_ACTIVIDAD" EntitySet="SEM_ACTIVIDAD" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ACTIVIDAD">
+          <Key>
+            <PropertyRef Name="IdActividad" />
+          </Key>
+          <Property Name="IdActividad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreActividad" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="IdTipo" Type="Int32" Nullable="false" />
+          <Property Name="IdFormato" Type="Int32" />
+          <NavigationProperty Name="FORMATO" Relationship="DBPASSTMAModel.FK_ACTIVIDAD_FORMATO" FromRole="ACTIVIDAD" ToRole="FORMATO" />
+          <NavigationProperty Name="TIPOACTIVIDAD" Relationship="DBPASSTMAModel.FK_ACTIVIDAD_TIPOACTIVIDAD" FromRole="ACTIVIDAD" ToRole="TIPOACTIVIDAD" />
+          <NavigationProperty Name="SEM_ACTIVIDAD" Relationship="DBPASSTMAModel.FK_SEM_ACTIVIDAD_ACTIVIDAD" FromRole="ACTIVIDAD" ToRole="SEM_ACTIVIDAD" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="DBPASSTMAModel.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="DBPASSTMAModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="DBPASSTMAModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="DBPASSTMAModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="DBPASSTMAModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="RESPONSABLE" Relationship="DBPASSTMAModel.FK_RESPONSABLE_AspNetUsers" FromRole="AspNetUsers" ToRole="RESPONSABLE" />
+          <NavigationProperty Name="AspNetRoles" Relationship="DBPASSTMAModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+        </EntityType>
+        <EntityType Name="ESTADO">
+          <Key>
+            <PropertyRef Name="IdEstado" />
+          </Key>
+          <Property Name="IdEstado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreEstado" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SEM_ACTIVIDAD" Relationship="DBPASSTMAModel.FK_SEM_ACTIVIDAD_ESTADO" FromRole="ESTADO" ToRole="SEM_ACTIVIDAD" />
+        </EntityType>
+        <EntityType Name="FORMATO">
+          <Key>
+            <PropertyRef Name="IdFormato" />
+          </Key>
+          <Property Name="IdFormato" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreFormato" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ACTIVIDAD" Relationship="DBPASSTMAModel.FK_ACTIVIDAD_FORMATO" FromRole="FORMATO" ToRole="ACTIVIDAD" />
+        </EntityType>
+        <EntityType Name="INFORME">
+          <Key>
+            <PropertyRef Name="IdInforme" />
+          </Key>
+          <Property Name="IdInforme" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreInforme" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SEM_ACTIVIDAD" Relationship="DBPASSTMAModel.FK_SEM_ACTIVIDAD_INFORME" FromRole="INFORME" ToRole="SEM_ACTIVIDAD" />
+        </EntityType>
+        <EntityType Name="RESPONSABLE">
+          <Key>
+            <PropertyRef Name="IdResponsable" />
+          </Key>
+          <Property Name="IdResponsable" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreResponsable" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EmailResponsable" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IdAspNetUser" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="NombreRol" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="DBPASSTMAModel.FK_RESPONSABLE_AspNetUsers" FromRole="RESPONSABLE" ToRole="AspNetUsers" />
+          <NavigationProperty Name="SEM" Relationship="DBPASSTMAModel.FK_SEM_RESPONSABLE" FromRole="RESPONSABLE" ToRole="SEM" />
+        </EntityType>
+        <EntityType Name="SEDE">
+          <Key>
+            <PropertyRef Name="IdSEDE" />
+          </Key>
+          <Property Name="IdSEDE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreSEDE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="UUNN" Relationship="DBPASSTMAModel.FK_UUNN_SEDE" FromRole="SEDE" ToRole="UUNN" />
+        </EntityType>
+        <EntityType Name="SEM">
+          <Key>
+            <PropertyRef Name="IdSEM" />
+          </Key>
+          <Property Name="IdSEM" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreSEM" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IdUUNN" Type="Int32" Nullable="false" />
+          <Property Name="IdResponsable" Type="Int32" Nullable="false" />
+          <Property Name="EsPrincipal" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="RESPONSABLE" Relationship="DBPASSTMAModel.FK_SEM_RESPONSABLE" FromRole="SEM" ToRole="RESPONSABLE" />
+          <NavigationProperty Name="UUNN" Relationship="DBPASSTMAModel.FK_SEM_UUNN" FromRole="SEM" ToRole="UUNN" />
+          <NavigationProperty Name="SEM_ACTIVIDAD" Relationship="DBPASSTMAModel.FK_SEM_ACTIVIDAD_SEM1" FromRole="SEM" ToRole="SEM_ACTIVIDAD" />
+        </EntityType>
+        <EntityType Name="TIPOACTIVIDAD">
+          <Key>
+            <PropertyRef Name="IdTipo" />
+          </Key>
+          <Property Name="IdTipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreTipo" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ACTIVIDAD" Relationship="DBPASSTMAModel.FK_ACTIVIDAD_TIPOACTIVIDAD" FromRole="TIPOACTIVIDAD" ToRole="ACTIVIDAD" />
+        </EntityType>
+        <EntityType Name="UUNN">
+          <Key>
+            <PropertyRef Name="IdUUNN" />
+          </Key>
+          <Property Name="IdUUNN" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreUUNN" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdSEDE" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SEDE" Relationship="DBPASSTMAModel.FK_UUNN_SEDE" FromRole="UUNN" ToRole="SEDE" />
+          <NavigationProperty Name="SEM" Relationship="DBPASSTMAModel.FK_SEM_UUNN" FromRole="UUNN" ToRole="SEM" />
+        </EntityType>
+        <Association Name="FK_ACTIVIDAD_FORMATO">
+          <End Type="DBPASSTMAModel.FORMATO" Role="FORMATO" Multiplicity="0..1" />
+          <End Type="DBPASSTMAModel.ACTIVIDAD" Role="ACTIVIDAD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FORMATO">
+              <PropertyRef Name="IdFormato" />
+            </Principal>
+            <Dependent Role="ACTIVIDAD">
+              <PropertyRef Name="IdFormato" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACTIVIDAD_TIPOACTIVIDAD">
+          <End Type="DBPASSTMAModel.TIPOACTIVIDAD" Role="TIPOACTIVIDAD" Multiplicity="1" />
+          <End Type="DBPASSTMAModel.ACTIVIDAD" Role="ACTIVIDAD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPOACTIVIDAD">
+              <PropertyRef Name="IdTipo" />
+            </Principal>
+            <Dependent Role="ACTIVIDAD">
+              <PropertyRef Name="IdTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Type="DBPASSTMAModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DBPASSTMAModel.AspNetUserClaims" Role="AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Type="DBPASSTMAModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DBPASSTMAModel.AspNetUserLogins" Role="AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RESPONSABLE_AspNetUsers">
+          <End Type="DBPASSTMAModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+          <End Type="DBPASSTMAModel.RESPONSABLE" Role="RESPONSABLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RESPONSABLE">
+              <PropertyRef Name="IdAspNetUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SEM_RESPONSABLE">
+          <End Type="DBPASSTMAModel.RESPONSABLE" Role="RESPONSABLE" Multiplicity="1" />
+          <End Type="DBPASSTMAModel.SEM" Role="SEM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RESPONSABLE">
+              <PropertyRef Name="IdResponsable" />
+            </Principal>
+            <Dependent Role="SEM">
+              <PropertyRef Name="IdResponsable" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UUNN_SEDE">
+          <End Type="DBPASSTMAModel.SEDE" Role="SEDE" Multiplicity="1" />
+          <End Type="DBPASSTMAModel.UUNN" Role="UUNN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SEDE">
+              <PropertyRef Name="IdSEDE" />
+            </Principal>
+            <Dependent Role="UUNN">
+              <PropertyRef Name="IdSEDE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SEM_UUNN">
+          <End Type="DBPASSTMAModel.UUNN" Role="UUNN" Multiplicity="1" />
+          <End Type="DBPASSTMAModel.SEM" Role="SEM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UUNN">
+              <PropertyRef Name="IdUUNN" />
+            </Principal>
+            <Dependent Role="SEM">
+              <PropertyRef Name="IdUUNN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Type="DBPASSTMAModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
+          <End Type="DBPASSTMAModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
+        </Association>
+        <EntityType Name="SEM_ACTIVIDAD">
+          <Key>
+            <PropertyRef Name="IdSEMACT" />
+          </Key>
+          <Property Name="IdSEMACT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdSEM" Type="Int32" Nullable="false" />
+          <Property Name="IdActividad" Type="Int32" Nullable="false" />
+          <Property Name="Periodo" Type="Int32" Nullable="false" />
+          <Property Name="IdEstado" Type="Int32" Nullable="false" />
+          <Property Name="IdInforme" Type="Int32" Nullable="false" />
+          <Property Name="FEjec" Type="DateTime" Precision="3" />
+          <Property Name="IdRevisor" Type="Int32" />
+          <Property Name="Cantidad" Type="Int32" />
+          <Property Name="Comunicado" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Observacion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Anio" Type="Int32" />
+          <NavigationProperty Name="ACTIVIDAD" Relationship="DBPASSTMAModel.FK_SEM_ACTIVIDAD_ACTIVIDAD" FromRole="SEM_ACTIVIDAD" ToRole="ACTIVIDAD" />
+          <NavigationProperty Name="ESTADO" Relationship="DBPASSTMAModel.FK_SEM_ACTIVIDAD_ESTADO" FromRole="SEM_ACTIVIDAD" ToRole="ESTADO" />
+          <NavigationProperty Name="INFORME" Relationship="DBPASSTMAModel.FK_SEM_ACTIVIDAD_INFORME" FromRole="SEM_ACTIVIDAD" ToRole="INFORME" />
+          <NavigationProperty Name="SEM" Relationship="DBPASSTMAModel.FK_SEM_ACTIVIDAD_SEM1" FromRole="SEM_ACTIVIDAD" ToRole="SEM" />
+        </EntityType>
+        <EntityType Name="SETTINGS">
+          <Key>
+            <PropertyRef Name="IdSetting" />
+          </Key>
+          <Property Name="IdSetting" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreSetting" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_SEM_ACTIVIDAD_ACTIVIDAD">
+          <End Type="DBPASSTMAModel.ACTIVIDAD" Role="ACTIVIDAD" Multiplicity="1" />
+          <End Type="DBPASSTMAModel.SEM_ACTIVIDAD" Role="SEM_ACTIVIDAD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACTIVIDAD">
+              <PropertyRef Name="IdActividad" />
+            </Principal>
+            <Dependent Role="SEM_ACTIVIDAD">
+              <PropertyRef Name="IdActividad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SEM_ACTIVIDAD_ESTADO">
+          <End Type="DBPASSTMAModel.ESTADO" Role="ESTADO" Multiplicity="1" />
+          <End Type="DBPASSTMAModel.SEM_ACTIVIDAD" Role="SEM_ACTIVIDAD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ESTADO">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="SEM_ACTIVIDAD">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SEM_ACTIVIDAD_INFORME">
+          <End Type="DBPASSTMAModel.INFORME" Role="INFORME" Multiplicity="1" />
+          <End Type="DBPASSTMAModel.SEM_ACTIVIDAD" Role="SEM_ACTIVIDAD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="INFORME">
+              <PropertyRef Name="IdInforme" />
+            </Principal>
+            <Dependent Role="SEM_ACTIVIDAD">
+              <PropertyRef Name="IdInforme" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SEM_ACTIVIDAD_SEM1">
+          <End Type="DBPASSTMAModel.SEM" Role="SEM" Multiplicity="1" />
+          <End Type="DBPASSTMAModel.SEM_ACTIVIDAD" Role="SEM_ACTIVIDAD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SEM">
+              <PropertyRef Name="IdSEM" />
+            </Principal>
+            <Dependent Role="SEM_ACTIVIDAD">
+              <PropertyRef Name="IdSEM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBPASSTMAModelStoreContainer" CdmEntityContainer="PASSTMAContext">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="DBPASSTMAModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ACTIVIDAD">
+            <EntityTypeMapping TypeName="DBPASSTMAModel.ACTIVIDAD">
+              <MappingFragment StoreEntitySet="ACTIVIDAD">
+                <ScalarProperty Name="IdFormato" ColumnName="IdFormato" />
+                <ScalarProperty Name="IdTipo" ColumnName="IdTipo" />
+                <ScalarProperty Name="NombreActividad" ColumnName="NombreActividad" />
+                <ScalarProperty Name="IdActividad" ColumnName="IdActividad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="DBPASSTMAModel.AspNetRoles">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="DBPASSTMAModel.AspNetUserClaims">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="DBPASSTMAModel.AspNetUserLogins">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="DBPASSTMAModel.AspNetUsers">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ESTADO">
+            <EntityTypeMapping TypeName="DBPASSTMAModel.ESTADO">
+              <MappingFragment StoreEntitySet="ESTADO">
+                <ScalarProperty Name="NombreEstado" ColumnName="NombreEstado" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FORMATO">
+            <EntityTypeMapping TypeName="DBPASSTMAModel.FORMATO">
+              <MappingFragment StoreEntitySet="FORMATO">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="NombreFormato" ColumnName="NombreFormato" />
+                <ScalarProperty Name="IdFormato" ColumnName="IdFormato" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="INFORME">
+            <EntityTypeMapping TypeName="DBPASSTMAModel.INFORME">
+              <MappingFragment StoreEntitySet="INFORME">
+                <ScalarProperty Name="NombreInforme" ColumnName="NombreInforme" />
+                <ScalarProperty Name="IdInforme" ColumnName="IdInforme" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RESPONSABLE">
+            <EntityTypeMapping TypeName="DBPASSTMAModel.RESPONSABLE">
+              <MappingFragment StoreEntitySet="RESPONSABLE">
+                <ScalarProperty Name="NombreRol" ColumnName="NombreRol" />
+                <ScalarProperty Name="IdAspNetUser" ColumnName="IdAspNetUser" />
+                <ScalarProperty Name="EmailResponsable" ColumnName="EmailResponsable" />
+                <ScalarProperty Name="NombreResponsable" ColumnName="NombreResponsable" />
+                <ScalarProperty Name="IdResponsable" ColumnName="IdResponsable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SEDE">
+            <EntityTypeMapping TypeName="DBPASSTMAModel.SEDE">
+              <MappingFragment StoreEntitySet="SEDE">
+                <ScalarProperty Name="NombreSEDE" ColumnName="NombreSEDE" />
+                <ScalarProperty Name="IdSEDE" ColumnName="IdSEDE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SEM">
+            <EntityTypeMapping TypeName="DBPASSTMAModel.SEM">
+              <MappingFragment StoreEntitySet="SEM">
+                <ScalarProperty Name="EsPrincipal" ColumnName="EsPrincipal" />
+                <ScalarProperty Name="IdResponsable" ColumnName="IdResponsable" />
+                <ScalarProperty Name="IdUUNN" ColumnName="IdUUNN" />
+                <ScalarProperty Name="NombreSEM" ColumnName="NombreSEM" />
+                <ScalarProperty Name="IdSEM" ColumnName="IdSEM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TIPOACTIVIDAD">
+            <EntityTypeMapping TypeName="DBPASSTMAModel.TIPOACTIVIDAD">
+              <MappingFragment StoreEntitySet="TIPOACTIVIDAD">
+                <ScalarProperty Name="NombreTipo" ColumnName="NombreTipo" />
+                <ScalarProperty Name="IdTipo" ColumnName="IdTipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UUNN">
+            <EntityTypeMapping TypeName="DBPASSTMAModel.UUNN">
+              <MappingFragment StoreEntitySet="UUNN">
+                <ScalarProperty Name="IdSEDE" ColumnName="IdSEDE" />
+                <ScalarProperty Name="NombreUUNN" ColumnName="NombreUUNN" />
+                <ScalarProperty Name="IdUUNN" ColumnName="IdUUNN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="DBPASSTMAModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="SEM_ACTIVIDAD">
+            <EntityTypeMapping TypeName="DBPASSTMAModel.SEM_ACTIVIDAD">
+              <MappingFragment StoreEntitySet="SEM_ACTIVIDAD">
+                <ScalarProperty Name="Anio" ColumnName="Anio" />
+                <ScalarProperty Name="Observacion" ColumnName="Observacion" />
+                <ScalarProperty Name="Comunicado" ColumnName="Comunicado" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="IdRevisor" ColumnName="IdRevisor" />
+                <ScalarProperty Name="FEjec" ColumnName="FEjec" />
+                <ScalarProperty Name="IdInforme" ColumnName="IdInforme" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="Periodo" ColumnName="Periodo" />
+                <ScalarProperty Name="IdActividad" ColumnName="IdActividad" />
+                <ScalarProperty Name="IdSEM" ColumnName="IdSEM" />
+                <ScalarProperty Name="IdSEMACT" ColumnName="IdSEMACT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SETTINGS">
+            <EntityTypeMapping TypeName="DBPASSTMAModel.SETTINGS">
+              <MappingFragment StoreEntitySet="SETTINGS">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="NombreSetting" ColumnName="NombreSetting" />
+                <ScalarProperty Name="IdSetting" ColumnName="IdSetting" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

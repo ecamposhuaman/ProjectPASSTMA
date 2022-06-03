@@ -1,0 +1,50 @@
+﻿@model ENTIDAD.RESPONSABLE
+
+@{
+    ViewBag.Title = "Usuarios";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Usuarios</h2>
+
+<div>
+    <h4>Detalle de Usuario</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            ID
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdResponsable)
+        </dd>
+
+        <dt>
+            NOMBRE
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreResponsable)
+        </dd>
+
+        <dt>
+            E-MAIL
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmailResponsable)
+        </dd>
+        <dt>
+            ROL
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreRol)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <a class="btn btn-default" href="@Url.Action("Index", "Responsable")"><i class="glyphicon glyphicon-menu-left"></i>Volver</a>
+    <a class="btn btn-info" href="@Url.Action("Editar", "Responsable", new { id = Model.IdResponsable })">Editar</a>
+</p>

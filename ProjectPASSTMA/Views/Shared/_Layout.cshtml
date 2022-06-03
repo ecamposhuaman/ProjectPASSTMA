@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#00CE6B" /> @*content="#00334e"*@
+    @*<meta name="msapplication-navbutton-color" content="#00334e" />*@
+
+    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+
+
+    <link href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" /> @*Formato DATATABLES*@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    @RenderSection("Styles", required: false)
+
+</head>
+<body style="color:#00334e; background-color:#F4F6F6">
+    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color:#00334e; border-color:#00334e;">
+        <div class="container">
+            <div class="navbar-header" b>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("PASSTMA", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @if (ViewContext.HttpContext.User.IsInRole("Administrador"))
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                               aria-expanded="false">Entidades<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("UN/SEM", "Index", "SEDE")</li>
+                                <li role="separator" class="divider"></li>
+                                <li>@Html.ActionLink("SE/Gerencias", "Index", "UUNN")</li>
+                                <li role="separator" class="divider"></li>
+                                <li>@Html.ActionLink("Jefaturas", "Index", "SEM")</li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                               aria-expanded="false">Actividades<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+
+                                <li>@Html.ActionLink("Grupo de Actividades", "Index", "TipoActividad")</li>
+                                <li role="separator" class="divider"></li>
+                                <li>@Html.ActionLink("Actividades", "Index", "Actividad")</li>
+                                <li role="separator" class="divider"></li>
+                                <li>@Html.ActionLink("Formatos", "Index", "Formato")</li>
+                            </ul>
+                        </li>
+
+                        <li>@Html.ActionLink("Usuarios", "Index", "Responsable")</li>
+                        <li>@Html.ActionLink("Asignaciones", "Index", "SEM_Actividad")</li>
+
+                        <li>@Html.ActionLink("Exportar", "Exportar", "SEM_Actividad")</li>
+                    }
+                    else
+                    {
+                        if (ViewContext.HttpContext.User.IsInRole("Responsable"))
+                        {
+                            <li>@Html.ActionLink("Actividades Programadas", "Index", "SEM_Actividad")</li>
+
+                        }
+                    }
+
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content" style="background-color:#F4F6F6">
+        @RenderBody()
+        <hr />
+        <footer class="text-center">
+            <p>&copy; @DateTime.Now.Year - PASSTMA ELECTROCENTRO</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.6/dist/loadingoverlay.min.js"></script> @*Estado de Carga de doc*@
+    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script> @*FORMATO DE DATATABLES*@
+    <script src="//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json"></script> @*FORMATO DE DATATABLES*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+    @*<script src="~/Scripts/VistasModalPopUp/Sem_ActividadModalPopUp.js"></script>*@
+    <script src="~/Scripts/AppECampos.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

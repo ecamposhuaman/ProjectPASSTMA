@@ -1,0 +1,89 @@
+﻿@model ENTIDAD.FORMATO
+
+@{
+    ViewBag.Title = "Formato";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Formato</h2>
+
+<h3>¿Está seguro de eliminar este formato?</h3>
+<div>
+    <h4>Eliminar Formato</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            ID
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdFormato)
+        </dd>
+        <dt>
+            NOMBRE
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NombreFormato)
+        </dd>
+        <dt>
+            DESCRIPCIÓN
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+
+    </dl>
+
+    <form action="@Url.Action("Eliminar", "Formato")" method="post" id="frmFORMATO">
+
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-12">
+                <input type="submit" value="Eliminar" class="btn btn-danger" />
+            </div>
+        </div>
+        <p>
+            <a class="btn btn-default" href="@Url.Action("Index", "Formato")"><i class="glyphicon glyphicon-menu-left"></i>Volver</a>
+        </p>
+    </form>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $("#frmFORMATO").submit(function (event) {
+            event.preventDefault(); //evitar la acción predeterminada para que la pagina no se sobrecargue
+
+            var post_url = $(this).attr("action"); //action url del formulario
+            var request_method = $(this).attr("method"); //método GET/POST del formulario
+            var form_data = $(this).serializeArray(); //Codificando elementos de formulario para su envío
+            console.log(form_data);
+            LoadingOverlayShow("#frmFORMATO"); /* MOSTRAR estado de carga   */
+            $.ajax({
+                url: post_url,
+                type: request_method,
+                data: form_data
+            }).done(function (response) { //
+                console.log(response);
+                //LoadingOverlayHide("#frmSEM_ACTIVIDAD"); /*   OCULTAR estado de carga   */
+                if (response.ok) {
+                    alert("El Formato ha sido eliminado.");
+                    window.location = response.toRedirect;
+                }
+                else {
+                    let rsp = response.msg;
+                    let cont = "The DELETE statement conflicted with the REFERENCE constraint";
+                    let trad = "La declaración ELIMINAR entró en conflicto con la restricción 'FK_ACTIVIDAD_FORMATO'.";
+                    if (rsp.includes(cont))
+                        alert("No es posible eliminar este Formato porque actualmente está relacionado a una Actividad. \nError: " + trad);
+                    else
+                        alert("EL PROCESO NO PUEDE COMPLETARSE DEBIDO A ESTE ERROR: \n" + rsp);
+                    window.location = response.toRedirect;
+                }
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                LoadingOverlayHide("#frmFORMATO");
+            });
+        });
+
+    </script>
+}

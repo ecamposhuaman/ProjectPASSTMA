@@ -1,0 +1,133 @@
+﻿@model ENTIDAD.SEMCE
+
+@{
+    ViewBag.Title = "Jefatura";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Jefatura</h2>
+
+<form action="@Url.Action("Editar", "SEM")" method="post" id="frmSEM">
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <h4>Editar Jefatura</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(model => model.IdSEM)
+
+        <div class="form-group">
+            <label for="NombreSEM" class="control-label col-md-2">Nombre</label>
+            <div class="col-md-10">
+                <input type="text" value="@Model.NombreSEM" class="form-control" id="NombreSEM" name="NombreSEM" placeholder="Ingrese Nombre de Jefatura" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="IdUUNN" class="control-label col-md-2">SE/Gerencia</label>
+            <div class="col-md-10">
+                <select class="form-control" id="IdUUNN" name="IdUUNN">
+                    <option value="">Seleccionar...</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="IdResponsable" class="control-label col-md-2">Responsable</label>
+            <div class="col-md-10">
+                <select class="form-control" id="IdResponsable" name="IdResponsable">
+                    <option value="">Seleccionar...</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="EsPrincipal" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input type="checkbox" id="EsPrincipal" name="EsPrincipal"> <label for="EsPrincipal">Es Sede</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Guardar" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>
+<div>
+    <a class="btn btn-default" href="@Url.Action("Index", "SEM")"><i class="glyphicon glyphicon-menu-left"></i>Volver</a>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script>
+        ObtenerUUNN(function(result){
+            $("#IdUUNN").val(@Model.IdUUNN);
+        });
+
+        ObtenerResponsable_sem(function(result){
+            $("#IdResponsable").val(@Model.IdResponsable);
+
+        });
+
+    $(document).ready(function () {
+        var ch = @Model.EsPrincipal;
+        if(ch == "S")
+            $("#EsPrincipal").prop('checked', true);
+    });
+
+
+        $("#frmSEM").submit(function (event) {
+            event.preventDefault(); //evitar la acción predeterminada para que la pagina no se sobrecargue
+            ////AQUÍ LAS VALIDACIONES EN EL CLIENTE   //
+            var nombre = $("#NombreSEM").val();
+            if ($.trim(nombre) == "") {
+                alert("Ingrese Nombre de Jefatura");
+                return;
+            }
+
+            var UUNNId = $("#IdUUNN").val();
+            if (UUNNId == "") {
+                alert("Elegir SE/GERENCIA");
+                return;
+            }
+
+            var ResponsableId = $("#IdResponsable").val();
+            if (ResponsableId == "") {
+                alert("Es necesario asignar un Responsable");
+                return;
+            }
+
+            var post_url = $(this).attr("action"); //action url del formulario
+            var request_method = $(this).attr("method"); //método GET/POST del formulario
+            var form_data = $(this).serializeArray(); //Codificando elementos de formulario para su envío
+            console.log(form_data);
+            LoadingOverlayShow("#frmSEM"); /* MOSTRAR estado de carga   */
+            $.ajax({
+                url: post_url,
+                type: request_method,
+                data: form_data
+            }).done(function (response) { //
+                console.log(response);
+                LoadingOverlayHide("#frmSEM"); /*   OCULTAR estado de carga   */
+                if (response.ok) {
+                    alert("Jefatura modificada correctamente.");
+                    window.location = response.toRedirect;
+                }
+                else {
+                    alert(response.msg);
+                }
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                LoadingOverlayHide("#frmSEM"); /*   OCULTAR estado de carga   */
+                //object jqXHR: es un objeto jqXHR que contiene todos los datos de la solicitud Ajax realizada,
+                //    incluyendo la propiedad jqXHR.status que contiene, entre otros posibles, el código de estado HTTP de la respuesta.
+                //string textStatus: texto que describe el tipo de error, que puede ser, además de null,
+                //        «abort», «timeout», «No Transport» o «parseerror».
+                //string errorThrown: si hay un error HTTP, errorThrown contiene el texto de la cabecera HTTP de estado.
+                //    Por ejemplo, para un error HTTP 404, errorThrown es «Not found»; para error un HTTP 500 es «Internal Server Error».
+            });
+        });
+
+</script>
+}

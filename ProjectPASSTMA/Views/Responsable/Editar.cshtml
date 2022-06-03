@@ -1,0 +1,109 @@
+﻿@model ENTIDAD.RESPONSABLE
+
+@{
+    ViewBag.Title = "Usuarios";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Usuarios</h2>
+
+<form action="@Url.Action("Editar", "Responsable")" method="post" id="frmResponsable">
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <h4>Editar Usuario</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.IdResponsable)
+        @Html.HiddenFor(model => model.IdAspNetUser)
+
+
+        <div class="form-group">
+            <label for="NombreResponsable" class="control-label col-md-2">Nombres y Apellidos</label>
+            <div class="col-md-10">
+                <input value="@Model.NombreResponsable" type="text" id="NombreResponsable" name="NombreResponsable" placeholder="Ingrese Nombres y Apellidos" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="EmailResponsable" class="control-label col-md-2">E-mail</label>
+            <div class="col-md-10">
+                <input disabled type="email" id="EmailResponsable" name="EmailResponsable" value="@Model.EmailResponsable" placeholder="Ingrese E-mail" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="NombreRol" class="control-label col-md-2">Rol</label>
+            <div class="col-md-10">
+                <select class="form-control" id="NombreRol" name="NombreRol">
+                    <option value="Responsable">Usuario Estandar</option>
+                    <option value="Administrador">Administrador</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="action" class="control-label col-md-2">Acción</label>
+            <div class="col-md-10">
+                <select class="form-control" id="action" name="action">
+                    <option value="1">Modificar datos únicamente</option>
+                    <option value="2">Modificar datos y Restablecer Cuenta</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Guardar" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>
+<div>
+    <a class="btn btn-default" href="@Url.Action("Index", "Responsable")"><i class="glyphicon glyphicon-menu-left"></i>Volver</a>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script>
+        $(document).ready(function () {
+            $('#NombreRol > option[value="@Model.NombreRol"]').attr('selected', 'selected');
+        });
+
+        $("#frmResponsable").submit(function (event) {
+            event.preventDefault(); //evitar la acción predeterminada para que la pagina no se sobrecargue
+            ////AQUÍ LAS VALIDACIONES EN EL CLIENTE   //
+            var nombre = $("#NombreResponsable").val();
+            if ($.trim(nombre) == "") {
+                alert("Ingrese Nombre de Usuario");
+                return;
+            }
+
+            var email = $("#EmailResponsable").val();
+            if ($.trim(email) == "") {
+                alert("Ingrese E-mail de Usuario");
+                return;
+            }
+
+
+            var post_url = $(this).attr("action"); //action url del formulario
+            var request_method = $(this).attr("method"); //método GET/POST del formulario
+            var form_data = $(this).serializeArray(); //Codificando elementos de formulario para su envío
+            console.log(form_data);
+            LoadingOverlayShow("#frmResponsable"); /* MOSTRAR estado de carga   */
+            $.ajax({
+                url: post_url,
+                type: request_method,
+                data: form_data
+            }).done(function (response) { //
+                console.log(response);
+                LoadingOverlayHide("#frmResponsable"); /*   OCULTAR estado de carga   */
+                if (response.ok) {
+                    alert("Usuario modificado correctamente.");
+                    window.location = response.toRedirect;
+                }
+                else {
+                    alert(response.msg);
+                }
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                LoadingOverlayHide("#frmResponsable");
+            });
+        });
+</script>
+}

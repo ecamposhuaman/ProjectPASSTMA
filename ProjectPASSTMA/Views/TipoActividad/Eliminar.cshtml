@@ -1,0 +1,87 @@
+﻿@model ENTIDAD.TIPOACTIVIDAD
+
+@{
+    ViewBag.Title = "Grupo de Actividades";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Grupo de Actividades</h2>
+
+<h3>¿Está seguro de eliminar esto?</h3>
+<div>
+    <h4>Eliminar Grupo de Actividades</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            ID
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdTipo)
+        </dd>
+
+        <dt>
+            NOMBRE
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreTipo)
+        </dd>
+
+    </dl>
+
+    <form action="@Url.Action("Eliminar", "TipoActividad")" method="post" id="frmTipoActividad">
+
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-12">
+                <input type="submit" value="Eliminar" class="btn btn-danger" />
+            </div>
+        </div>
+        <p>
+            <a class="btn btn-default" href="@Url.Action("Index", "TipoActividad")"><i class="glyphicon glyphicon-menu-left"></i>Volver</a>
+        </p>
+    </form>
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $("#frmTipoActividad").submit(function (event) {
+            event.preventDefault(); //evitar la acción predeterminada para que la pagina no se sobrecargue
+
+            var post_url = $(this).attr("action"); //action url del formulario
+            var request_method = $(this).attr("method"); //método GET/POST del formulario
+            var form_data = $(this).serializeArray(); //Codificando elementos de formulario para su envío
+            console.log(form_data);
+            LoadingOverlayShow("#frmTipoActividad"); /* MOSTRAR estado de carga   */
+            $.ajax({
+                url: post_url,
+                type: request_method,
+                data: form_data
+            }).done(function (response) { //
+                console.log(response);
+                //LoadingOverlayHide("#frmSEM_ACTIVIDAD"); /*   OCULTAR estado de carga   */
+                if (response.ok) {
+                    alert("El Grupo de Actividades ha sido eliminado.");
+                    window.location = response.toRedirect;
+                }
+                else {
+                    let rsp = response.msg;
+                    let cont = "The DELETE statement conflicted with the REFERENCE constraint";
+                    let trad = "La declaración ELIMINAR entró en conflicto con la restricción 'FK_ACTIVIDAD_TIPOACTIVIDAD'.";
+                    if (rsp.includes(cont))
+                        alert("No es posible eliminar este Grupo de Actividades porque actualmente está relacionado a una Actividad. \nError: " + trad);
+                    else
+                        alert("EL PROCESO NO PUEDE COMPLETARSE DEBIDO A ESTE ERROR: \n" + rsp);
+                    window.location = response.toRedirect;
+                }
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                LoadingOverlayHide("#frmTipoActividad");
+            });
+        });
+
+    </script>
+}

@@ -1,0 +1,148 @@
+﻿@model ENTIDAD.SEM_ACTIVIDADCE
+@{
+    ViewBag.Title = "Asignación de Actividades";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Asignación de Actividades</h2>
+<form action="@Url.Action("Revisar", "Sem_Actividad")" method="post" id="frmSEM_ACTIVIDAD">
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <h4>Revisión de Asignación de Actividad</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.IdSEMACT)
+
+        <div class="col-md-5">
+            <dl class="dl-horizontal">
+                <dt>
+                    ID
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.IdSEMACT)
+                </dd>
+                <dt>
+                    ACTIVIDAD
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.NombreActividad)
+                </dd>
+                <dt>
+                    JEFATURA
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.NombreSEM)
+                </dd>
+                <dt>
+                    PERIODO
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Periodo)
+                </dd>
+                <dt>
+                    CANTIDAD
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Cantidad)
+                </dd>
+                <dt>
+                    REVISOR
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.NombreRevisor)
+                </dd>
+                <dt>
+                    FECHA ENVÍO
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.FEjec)
+                </dd>
+                <dt>
+                    ARCHIVO INFORME
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.NombreInforme)
+                </dd>
+                <dt>
+                    ESTADO
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.NombreEstado)
+                </dd>
+                <dt>
+                    COMUNICADO
+                </dt>
+                <dd style="color:green">
+                    @Html.DisplayFor(model => model.Comunicado)
+                </dd>
+                <dt>
+                    OBSERVACIÓN
+                </dt>
+                <dd style="color:orangered">
+                    @Html.DisplayFor(model => model.Observacion)
+                </dd>
+            </dl>
+            <div class="form-group">
+                <label for="Comunicado" class="control-label col-md-4">Nuevo Comunicado</label>
+                <div class="col-md-8">
+                    <textarea class="form-control" title="Máximo 240 caracteres" style="width:300px;height:80px;" id="Comunicado" maxlength="240" name="Comunicado" placeholder="Nuevo comunicado a enviar"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12 text-center">
+                    <button type="submit" value="Rechazar" class="btn btn-danger">Rechazar <i class="glyphicon glyphicon-exclamation-sign"></i></button>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12 text-center">
+                    <a class="btn btn-success" href="@Url.Action("Aceptar", "Sem_Actividad", new { id = @Model.IdSEMACT })" title="Aceptar">Aceptar <i class="glyphicon glyphicon-ok"></i></a>
+                    @*<a class="btn btn-danger" href="@Url.Action("Rechazar", "Sem_Actividad", new { id = @Model.IdSEMACT, obs = @Model.Observacion })" title="Rechazar"><i class="glyphicon glyphicon-exclamation-sign"></i></a>*@
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12 text-center">
+                    <a class="btn btn-default" href="@Url.Action("Index", "Sem_Actividad")"><i class="glyphicon glyphicon-menu-left"></i>Volver</a>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-7 col-xs-12">
+            @Html.Action("MostrarContenido", "Sem_Actividad", new { nombreInforme = @Model.NombreInforme })
+        </div>
+
+    </div>
+
+</form>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+        $("#frmSEM_ACTIVIDAD2").submit(function (event) {
+            event.preventDefault(); //evitar la acción predeterminada para que la pagina no se sobrecargue
+
+            var post_url = $(this).attr("action"); //action url del formulario
+            var request_method = $(this).attr("method"); //método GET/POST del formulario
+            var form_data = $(this).serializeArray(); //Codificando elementos de formulario para su envío
+            console.log(form_data);
+            LoadingOverlayShow("#frmSEM_ACTIVIDAD"); /* MOSTRAR estado de carga   */
+            $.ajax({
+                url: post_url,
+                type: request_method,
+                data: form_data
+            }).done(function (response) { //
+                console.log(response);
+                LoadingOverlayHide("#frmSEM_ACTIVIDAD"); /*   OCULTAR estado de carga   */
+                if (response.ok) {
+                    alert("Revisión registrada.");
+                    window.location = response.toRedirect;
+                }
+                else {
+                    alert(response.msg);
+                }
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                LoadingOverlayHide("#frmSEM_ACTIVIDAD");
+            });
+        });
+    </script>
+}

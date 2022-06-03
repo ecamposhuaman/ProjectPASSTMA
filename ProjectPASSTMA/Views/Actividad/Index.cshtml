@@ -1,0 +1,50 @@
+﻿@model IEnumerable<ENTIDAD.ACTIVIDADCE>
+
+@{
+    ViewBag.Title = "Actividad";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Actividades</h2>
+<p>
+    <a class="btn btn-success" href="@Url.Action("Crear", "Actividad")"><i class="glyphicon glyphicon-plus"></i>Crear Nuevo</a>
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            ID
+        </th>
+        <th>
+            ACTIVIDAD
+        </th>
+        <th>
+            GRUPO DE ACTIVIDAD
+        </th>
+        <th>
+            FORMATO
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.IdActividad
+            </td>
+            <td style="max-width:260px">
+                @item.NombreActividad
+            </td>
+            <td style="max-width:200px">
+                @item.NombreTipo
+            </td>
+            <td>
+                @Html.ActionLink(item.NombreFormato.IsEmpty() ? " " : "Ver", "DescargarFormato", "Formato", new { NomArchivo = item.NombreFormato.ToString() }, new { title = item.NombreFormato.ToString(), target = "_blank" })
+            </td>
+            <td>
+                <a class="btn btn-primary btn-xs" href="@Url.Action("Editar", "Actividad", new { id = item.IdActividad })" title="Editar"><i class="glyphicon glyphicon-pencil"></i></a>
+                <a class="btn btn-danger btn-xs" href="@Url.Action("Eliminar", "Actividad", new { id = item.IdActividad })" title="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
+            </td>
+        </tr>
+    }
+</table>

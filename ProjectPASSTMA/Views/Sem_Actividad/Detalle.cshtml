@@ -1,0 +1,87 @@
+﻿@model ENTIDAD.SEM_ACTIVIDADCE
+
+@{
+    ViewBag.Title = "Detalle de Asignación";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Asignación</h2>
+
+<div>
+    <h4>Detalle de Asignación de Actividades</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            ID
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdSEMACT)
+        </dd>
+
+        <dt>
+            ACTIVIDAD
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NombreActividad)
+        </dd>
+
+        <dt>
+            JEFATURA
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NombreSEM)
+        </dd>
+
+        <dt>
+            PERIODO
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Periodo)
+        </dd>
+
+        <dt>
+            ESTADO
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NombreEstado)
+        </dd>
+
+        <dt>
+            ARCHIVO INFORME
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NombreInforme)
+        </dd>
+
+        <dt>
+            FECHA ENVÍO
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FEjec)
+        </dd>
+
+        <dt>
+            REVISOR
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NombreRevisor)
+        </dd>
+        <dt>
+            COMUNICADO
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Comunicado)
+        </dd>
+        <dt>
+            OBSERVACIÓN
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Observacion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <a class="btn btn-default" href="@Url.Action("Index", "Sem_Actividad")"><i class="glyphicon glyphicon-menu-left"></i>Volver</a>
+    <a class="btn btn-success" href="@Url.Action("CerrarAsignacion", "Sem_Actividad", new { id = Model.IdSEMACT })">Ejecutar<i class="glyphicon glyphicon-check"></i></a>
+</p>

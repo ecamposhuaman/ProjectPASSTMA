@@ -1,0 +1,23 @@
+﻿@model List<string>
+
+@{
+    ViewBag.Title = "ListaArchivos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Lista Archivos</h2>
+
+<table class="table">
+    <tr>
+        <th>File Name</th>
+        <th>Link</th>
+    </tr>
+    @for (var i = 0; i <= Model.Count - 1; i++)
+    {
+        <tr>
+            @*<td>@Model[i].ToString() </td>*@
+            <td>@Html.ActionLink(@Model[i].ToString(), "Descargar", new { filename = @Model[i].ToString() }) </td>
+            <td>@Html.ActionLink("Download", "Descargar", new { filename = @Model[i].ToString() }) </td>
+        </tr>
+    }
+</table>

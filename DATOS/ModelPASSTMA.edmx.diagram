@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1978bb2aeca0446ead5265b64e145883" Name="Diagram1">
+        <EntityTypeShape EntityType="DBPASSTMAModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DBPASSTMAModel.ACTIVIDAD" Width="1.5" PointX="7.5" PointY="16.875" />
+        <EntityTypeShape EntityType="DBPASSTMAModel.AspNetRoles" Width="1.5" PointX="0.75" PointY="5.125" />
+        <EntityTypeShape EntityType="DBPASSTMAModel.AspNetUserClaims" Width="1.5" PointX="5.25" PointY="7.75" />
+        <EntityTypeShape EntityType="DBPASSTMAModel.AspNetUserLogins" Width="1.5" PointX="5.25" PointY="2" />
+        <EntityTypeShape EntityType="DBPASSTMAModel.AspNetUsers" Width="1.5" PointX="3" PointY="3.875" />
+        <EntityTypeShape EntityType="DBPASSTMAModel.ESTADO" Width="1.5" PointX="7.5" PointY="1.375" />
+        <EntityTypeShape EntityType="DBPASSTMAModel.FORMATO" Width="1.5" PointX="5.25" PointY="16" />
+        <EntityTypeShape EntityType="DBPASSTMAModel.INFORME" Width="1.5" PointX="7.5" PointY="9.75" />
+        <EntityTypeShape EntityType="DBPASSTMAModel.RESPONSABLE" Width="1.5" PointX="5.25" PointY="4.625" />
+        <EntityTypeShape EntityType="DBPASSTMAModel.SEDE" Width="1.5" PointX="3" PointY="12" />
+        <EntityTypeShape EntityType="DBPASSTMAModel.SEM" Width="1.5" PointX="7.5" PointY="4.5" />
+        <EntityTypeShape EntityType="DBPASSTMAModel.TIPOACTIVIDAD" Width="1.5" PointX="5.25" PointY="18.625" />
+        <EntityTypeShape EntityType="DBPASSTMAModel.UUNN" Width="1.5" PointX="5.25" PointY="11.75" />
+        <AssociationConnector Association="DBPASSTMAModel.FK_ACTIVIDAD_FORMATO" />
+        <AssociationConnector Association="DBPASSTMAModel.FK_ACTIVIDAD_TIPOACTIVIDAD" />
+        <AssociationConnector Association="DBPASSTMAModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="DBPASSTMAModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="DBPASSTMAModel.FK_RESPONSABLE_AspNetUsers" />
+        <AssociationConnector Association="DBPASSTMAModel.FK_SEM_RESPONSABLE" />
+        <AssociationConnector Association="DBPASSTMAModel.FK_UUNN_SEDE" />
+        <AssociationConnector Association="DBPASSTMAModel.FK_SEM_UUNN" />
+        <AssociationConnector Association="DBPASSTMAModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="DBPASSTMAModel.SEM_ACTIVIDAD" Width="1.5" PointX="10.125" PointY="8.25" />
+        <EntityTypeShape EntityType="DBPASSTMAModel.SETTINGS" Width="1.5" PointX="0.75" PointY="8.75" />
+        <AssociationConnector Association="DBPASSTMAModel.FK_SEM_ACTIVIDAD_ACTIVIDAD" />
+        <AssociationConnector Association="DBPASSTMAModel.FK_SEM_ACTIVIDAD_ESTADO" />
+        <AssociationConnector Association="DBPASSTMAModel.FK_SEM_ACTIVIDAD_INFORME" />
+        <AssociationConnector Association="DBPASSTMAModel.FK_SEM_ACTIVIDAD_SEM1" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

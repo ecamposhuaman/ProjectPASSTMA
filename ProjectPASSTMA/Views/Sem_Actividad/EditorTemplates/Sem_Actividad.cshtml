@@ -1,0 +1,29 @@
+﻿@model IEnumerable<ENTIDAD.SEM_ACTIVIDADCE>
+@foreach (var x in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayName(x.IdSEMACT.ToString())
+        </td>
+        <td>
+            @Html.DisplayName(x.NombreActividad.ToString())
+        </td>
+        <td>
+            @Html.DisplayName(x.NombreSEM.ToString())
+        </td>
+        <td>
+            @Html.DisplayName(x.FVencimiento.ToString())
+        </td>
+        <td>
+            @Html.DisplayName(x.NombreEstado.ToString())
+        </td>
+        <td>
+            @Html.DisplayName(x.NombreArchivoINF.ToString())
+            @*<input type="file" id="ArchivoInforme" name="ArchivoInforme" class="form-control" accept=".pdf" title="Seleccionar Archivo PDF" />*@
+            @*@Html.DisplayFor(x => x.NombreArchivoINF)*@
+        </td>
+        <td>
+            @Html.DisplayName(x.Cantidad.ToString())
+        </td>
+    </tr>
+}

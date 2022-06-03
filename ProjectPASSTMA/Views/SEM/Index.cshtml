@@ -1,0 +1,68 @@
+﻿@model IEnumerable<ENTIDAD.SEMCE>
+
+@{
+    ViewBag.Title = "Jefatura";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Jefaturas</h2>
+<p>
+    <a class="btn btn-success" href="@Url.Action("Crear", "SEM")"><i class="glyphicon glyphicon-plus"></i>Crear Nuevo</a>
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            ID
+        </th>
+        <th>
+            CAT.
+        </th>
+        <th>
+            JEFATURA
+        </th>
+        <th>
+            SE/GERENCIA
+        </th>
+        <th>
+            UN/SEM
+        </th>
+        <th>
+            RESPONSABLE
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.IdSEM
+            </td>
+            <td>
+                @if (item.EsPrincipal == "S")
+                {
+                    <p>Sede</p>
+                }
+            </td>
+            <td>
+                @item.NombreSEM
+            </td>
+            <td>
+                @item.NombreUUNN
+            </td>
+            <td>
+                @item.NombreSEDE
+            </td>
+            <td>
+                @item.NombreResponsable
+            </td>
+            <td>
+                <a class="btn btn-primary btn-xs" href="@Url.Action("Editar", "SEM", new { id = item.IdSEM })" title="Editar"><i class="glyphicon glyphicon-pencil"></i></a>
+                <a class="btn btn-info btn-xs" href="@Url.Action("Detalle", "SEM", new { id = item.IdSEM })" title="Detalles"><i class="glyphicon glyphicon-th-list"></i></a>
+                <a class="btn btn-danger btn-xs" href="@Url.Action("Eliminar", "SEM", new { id = item.IdSEM })" title="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
+                @*<a class="btn btn-danger btn-xs" onclick="EliminarSEM(@item.IdSEM)" title="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>*@
+            </td>
+        </tr>
+    }
+
+</table>

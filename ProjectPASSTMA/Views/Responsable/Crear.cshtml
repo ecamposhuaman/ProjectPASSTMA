@@ -1,0 +1,95 @@
+﻿@model ENTIDAD.RESPONSABLE
+
+@{
+    ViewBag.Title = "Usuarios";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Usuarios</h2>
+
+<form action="@Url.Action("Crear", "Responsable")" method="post" id="frmResponsable">
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <h4>Crear Nuevo Usuario</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            <label for="NombreResponsable" class="control-label col-md-2">Nombres y Apellidos</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" id="NombreResponsable" name="NombreResponsable" placeholder="Ingrese Nombres y Apellidos" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="EmailResponsable" class="control-label col-md-2">E-mail</label>
+            <div class="col-md-10">
+                <input type="email" class="form-control" id="EmailResponsable" name="EmailResponsable" placeholder="Ingrese E-mail" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="NombreRol" class="control-label col-md-2">Rol</label>
+            <div class="col-md-10">
+                <select class="form-control" id="NombreRol" name="NombreRol">
+                    <option value="Responsable">Usuario Estandar</option>
+                    <option value="Administrador">Administrador</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Crear" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a class="btn btn-default" href="@Url.Action("Index", "Responsable")"><i class="glyphicon glyphicon-menu-left"></i>Volver</a>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $("#frmResponsable").submit(function (event) {
+            event.preventDefault(); //evitar la acción predeterminada para que la pagina no se sobrecargue
+            ////AQUÍ LAS VALIDACIONES EN EL CLIENTE   //
+            var nombre = $("#NombreResponsable").val();
+            if ($.trim(nombre) == "") {
+                alert("Ingrese Nombre de Usuario");
+                return;
+            }
+
+            var email = $("#EmailResponsable").val();
+            if ($.trim(email) == "") {
+                alert("Ingrese E-mail de Usuario");
+                return;
+            }
+
+            var post_url = $(this).attr("action"); //action url del formulario
+            var request_method = $(this).attr("method"); //método GET/POST del formulario
+            var form_data = $(this).serializeArray(); //Codificando elementos de formulario para su envío
+            console.log(form_data);
+            LoadingOverlayShow("#frmResponsable"); /* MOSTRAR estado de carga   */
+            $.ajax({
+                url: post_url,
+                type: request_method,
+                data: form_data
+            }).done(function (response) { //
+                console.log(response);
+                LoadingOverlayHide("#frmResponsable"); /*   OCULTAR estado de carga   */
+                if (response.ok) {
+                    alert("Usuario creado correctamente.");
+                    window.location = response.toRedirect;
+                }
+                else {
+                    alert(response.msg);
+                }
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                LoadingOverlayHide("#frmResponsable");
+            });
+        });
+    </script>
+}

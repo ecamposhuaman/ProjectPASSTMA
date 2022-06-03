@@ -1,0 +1,107 @@
+﻿@model ENTIDAD.SEM_ACTIVIDADCE
+
+@{
+    ViewBag.Title = "Ejecutar Asignación";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Ejecutar Asignación</h2>
+
+<form action="@Url.Action("CerrarAsignacion", "Sem_Actividad")" enctype="multipart/form-data" method="post" id="frmSEM_ACTIVIDAD">
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <h4>Cerrar Asignación de Actividades</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.IdSEMACT)
+        @Html.HiddenFor(model => model.IdEstado)
+
+        @Html.HiddenFor(model => model.IdInforme)
+        @Html.HiddenFor(model => model.NombreInforme)
+
+    <dl class="dl-horizontal">
+        <dt>
+            ID ASIGNACIÓN
+        </dt>
+        <dd>
+            @Model.IdSEMACT
+        </dd>
+        <dt>
+            JEFATURA
+        </dt>
+        <dd>
+            @Model.NombreSEM
+        </dd>
+        <dt>
+            ACTIVIDAD
+        </dt>
+        <dd>
+            @Model.NombreActividad
+        </dd>
+        <dt>
+            COMUNICADO
+        </dt>
+        <dd>
+            @Model.Comunicado
+        </dd>
+        <dt>
+            ESTADO
+        </dt>
+        <dd id="ddnomestado">
+            @Model.NombreEstado
+        </dd>
+        <dt>
+            OBSERVACIÓN
+        </dt>
+        <dd id="ddnomestado">
+            @Model.Observacion
+        </dd>
+    </dl>
+
+        <div id="cont">
+            <div class="form-group">
+                <label for="ArchivoInforme" class="control-label col-md-2">Archivo Informe</label>
+                <div class="col-md-10">
+                    <input onchange="habilitar(this.value)" type="file" id="ArchivoInforme" name="ArchivoInforme" class="form-control" accept=".pdf" title="Seleccionar Archivo PDF" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Observacion" class="control-label col-md-2">Observación</label>
+                <div class="col-md-10">
+                    <textarea oninput="habilitar(this.value)" id="Observacion" name="Observacion" class="form-control" title="Máximo 240 caracteres" style="width:300px;height:100px;" maxlength="240" placeholder="Anotaciones de Observación..."></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12 col-md-offset-2">
+                    <input id="Enviar" type="submit" value="Enviar" class="btn btn-primary" disabled />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<p>
+    <a class="btn btn-default" href="@Url.Action("Index", "Sem_Actividad")"><i class="glyphicon glyphicon-menu-left"></i>Volver</a>
+</p>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        function habilitar(dt) {
+            var arch = $("#ArchivoInforme").val();
+            var obs = $.trim(dt);
+            if (arch == "" && obs == "")
+                document.getElementById("Enviar").disabled = true; //DESHABILITA
+            else
+                document.getElementById("Enviar").disabled = false; //HABILITA
+        };
+
+        $(document).ready(function () {
+            if (@Model.IdEstado == 2 || @Model.IdEstado == 4) {
+                $("#cont").hide();
+                $("#ddnomestado").addClass("text-success");
+            } else {
+                $("#cont").show();
+                $("#ddnomestado").addClass("text-danger");
+            }
+        });
+    </script>
+}

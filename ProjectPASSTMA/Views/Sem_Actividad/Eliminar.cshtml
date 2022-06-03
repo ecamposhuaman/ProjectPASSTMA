@@ -1,0 +1,126 @@
+﻿@model ENTIDAD.SEM_ACTIVIDADCE
+
+@{
+    ViewBag.Title = "Asignación de Actividad";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Asignación de Actividades</h2>
+
+<h3>¿Está seguro de eliminar esto?</h3>
+<div>
+    <h4>Eliminar Asignación</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            ID
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdSEMACT)
+        </dd>
+
+        <dt>
+            ACTIVIDAD
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NombreActividad)
+        </dd>
+
+        <dt>
+            JEFATURA
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NombreSEM)
+        </dd>
+
+
+        <dt>
+            PERIODO
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Periodo)
+        </dd>
+
+        <dt>
+            ESTADO
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NombreEstado)
+        </dd>
+
+        <dt>
+            ARCHIVO INFORME
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NombreInforme)
+        </dd>
+
+        <dt>
+            F. ENVÍO
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FEjec)
+        </dd>
+
+        <dt>
+            REVISOR
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NombreRevisor)
+        </dd>
+
+    </dl>
+    <form action="@Url.Action("Eliminar", "Sem_Actividad")" method="post" id="frmSEM_ACTIVIDAD">
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-12">
+                <input type="submit" value="Eliminar" class="btn btn-danger" />
+            </div>
+        </div>
+        <p>
+            <a class="btn btn-default" href="@Url.Action("Index", "Sem_Actividad")"><i class="glyphicon glyphicon-menu-left"></i>Volver</a>
+        </p>
+    </form>
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $("#frmSEM_ACTIVIDAD").submit(function (event) {
+            event.preventDefault(); //evitar la acción predeterminada para que la pagina no se sobrecargue
+
+            var post_url = $(this).attr("action"); //action url del formulario
+            var request_method = $(this).attr("method"); //método GET/POST del formulario
+            var form_data = $(this).serializeArray(); //Codificando elementos de formulario para su envío
+            console.log(form_data);
+            LoadingOverlayShow("#frmSEM_ACTIVIDAD"); /* MOSTRAR estado de carga   */
+            $.ajax({
+                url: post_url,
+                type: request_method,
+                data: form_data
+            }).done(function (response) { //
+                console.log(response);
+                //LoadingOverlayHide("#frmSEM_ACTIVIDAD"); /*   OCULTAR estado de carga   */
+                if (response.ok) {
+                    alert("La Asignación ha sido eliminada.");
+                    window.location = response.toRedirect;
+                }
+                else {
+                    let rsp = response.msg;
+                    let cont = "The DELETE statement conflicted with the REFERENCE constraint";
+                    let trad = "La declaración ELIMINAR entró en conflicto con la restricción 'FK_SEM_ACTIVIDAD_????'.";
+                    if (rsp.includes(cont))
+                        alert("No es posible eliminar esta Asignación porque actualmente está relacionada. \nError: " + trad);
+                    else
+                        alert("EL PROCESO NO PUEDE COMPLETARSE DEBIDO A ESTE ERROR: \n" + rsp);
+                    window.location = response.toRedirect;
+                }
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                LoadingOverlayHide("#frmSEM_ACTIVIDAD");
+            });
+        });
+    </script>
+}

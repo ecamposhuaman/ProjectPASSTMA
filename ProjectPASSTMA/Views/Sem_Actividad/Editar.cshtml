@@ -1,0 +1,235 @@
+﻿@model ENTIDAD.SEM_ACTIVIDADCE
+@{
+    ViewBag.Title = "Asignación de Actividades";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Asignación de Actividades</h2>
+<form action="@Url.Action("Editar", "Sem_Actividad")" method="post" id="frmSEM_ACTIVIDAD">
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <h4>Editar Asignación de Actividad</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.IdSEMACT)
+        @Html.HiddenFor(model => model.IdInforme)
+        @Html.HiddenFor(model => model.NombreInforme)
+        
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="IdUUNN" class="control-label col-md-2">Gerencia</label>
+                    <div class="col-md-10">
+                        <select class="form-control" id="IdUUNN" name="IdUUNN">
+                            <option value="">Seleccionar...</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="IdSEM" class="control-label col-md-2">Jefatura</label>
+                    <div class="col-md-10">
+                        <select class="form-control" id="IdSEM" name="IdSEM">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="IdTipo" class="control-label col-md-3">Grupo Actividad</label>
+                    <div class="col-md-9">
+                        <select class="form-control" id="IdTipo" name="IdTipo">
+                            <option value="">Seleccionar...</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="IdActividad" class="control-label col-md-3">Actividad</label>
+                    <div class="col-md-9">
+                        <select class="form-control" id="IdActividad" name="IdActividad">
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="Cantidad" class="control-label col-md-2">Cantidad</label>
+                    <div class="col-md-10">
+                        <input type="number" class="form-control" step="1" max="99" min="1" id="Cantidad" name="Cantidad" value="@Model.Cantidad" placeholder="Cantidad" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="IdEstado" class="control-label col-md-2">Estado</label>
+                    <div class="col-md-10">
+                        <select class="form-control" id="IdEstado" name="IdEstado">
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="cmbmes" class="control-label col-md-2">Periodo</label>
+                    <div class="col-md-10">
+                        <select class="form-control" id="Periodo" name="Periodo">
+                            <option value="1">Enero</option>
+                            <option value="2">Febrero</option>
+                            <option value="3">Marzo</option>
+                            <option value="4">Abril</option>
+                            <option value="5">Mayo</option>
+                            <option value="6">Junio</option>
+                            <option value="7">Julio</option>
+                            <option value="8">Agosto</option>
+                            <option value="9">Septiembre</option>
+                            <option value="10">Octubre</option>
+                            <option value="11">Noviembre</option>
+                            <option value="12">Diciembre</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Informe existente</label>
+                    <h5 class="col-md-10" style="color:darkviolet">@Model.NombreInforme</h5>
+                    <div class="col-md-10 col-md-offset-2">
+                        <input type="checkbox" id="DeleteArchivo" value="Eliminar" name="DeleteArchivo"> <label style="color:darkviolet" for="DeleteArchivo">Eliminar Informe existente</label>
+                    </div>
+                </div>
+
+                @*<div class="form-group">
+                        <label for="ArchivoInforme" class="control-label col-md-5">Archivo de Informe Nuevo</label>
+                        <div class="col-md-7">
+                            <input type="file" id="ArchivoInforme" name="ArchivoInforme" class="form-control" accept=".pdf"
+                                   title="Seleccione un archivo nuevo para reemplazar al Archivo Existente u omita este campo para preservarlo." />
+                        </div>
+                    </div>*@
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="Comunicado" class="control-label col-md-3">Comunicado</label>
+                    <div class="col-md-9">
+                        <textarea class="form-control" title="Máximo 240 caracteres" style="width:300px;height:80px;" id="Comunicado" maxlength="240" name="Comunicado" placeholder="Anotaciones de comunicado...">@Model.Comunicado</textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="Observacion" class="control-label col-md-3">Observación</label>
+                    <div class="col-md-9">
+                        <textarea class="form-control" title="Máximo 240 caracteres" style="width:300px;height:80px;" id="Observacion" maxlength="240" name="Observacion" placeholder="Anotaciones de Observación...">@Model.Observacion</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2 col-xs-6">
+                <a class="btn btn-default" href="@Url.Action("Index", "Sem_Actividad")"><i class="glyphicon glyphicon-menu-left"></i>Volver</a>
+            </div>
+
+            <div class="col-md-10 col-xs-6">
+                <input type="submit" value="Actualizar" class="btn btn-danger" />
+            </div>
+        </div>
+    </div>
+
+</form>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+        ObtenerUUNN();
+        ObtenerTipoActividad();
+
+        $(document).ready(function () {
+            $("#IdUUNN").change(function () {
+                $("#IdSEM").empty();
+                ObtenerSEM_byIdUUNN();
+            });
+
+            $("#IdTipo").change(function () {
+                $("#IdActividad").empty();
+                ObtenerActividadByTipo();
+            });
+
+            $("#cmbmeses").val([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
+            $("#repeticion").change(function () {
+                if (this.value == 1)
+                    $("#cmbmeses").val([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
+                else
+                    if (this.value == 2)
+                        $("#cmbmeses").val([2, 4, 6, 8, 10, 12]);
+                    else
+                        if (this.value == 3)
+                            $("#cmbmeses").val([3, 6, 9, 12]);
+                        else
+                            if (this.value == 4)
+                                $("#cmbmeses").val([6, 12]);
+                            else
+                                if (this.value == 5)
+                                    $("#cmbmeses").val([12]);
+            });
+        });
+
+        ObtenerSEM(function(result){
+            $("#IdSEM").val(@Model.IdSEM);
+        });
+
+        ObtenerActividad(function(result){
+            $("#IdActividad").val(@Model.IdActividad);
+        });
+
+        ObtenerEstado(function(result){
+            $("#IdEstado").val(@Model.IdEstado);
+        });
+
+        $("#Periodo").val(@Model.Periodo);
+
+        $("#frmSEM_ACTIVIDAD").submit(function (event) {
+            event.preventDefault(); //evitar la acción predeterminada para que la pagina no se sobrecargue
+            ////AQUÍ LAS VALIDACIONES EN EL CLIENTE   //
+            var act = $("#IdActividad").val();
+            if (act == "") {
+                alert("Seleccionar Actividad");
+                return;
+            }
+            var sem = $("#IdSEM").val();
+            if (sem == "") {
+                alert("Seleccionar SEM");
+                return;
+            }
+            var est = $("#IdEstado").val();
+            if (est == "") {
+                alert("Seleccionar Estado");
+                return;
+            }
+            var cnt = $("#Cantidad").val();
+            if (cnt == "") {
+                alert("Especificar Cantidad");
+                return;
+            }
+
+            var post_url = $(this).attr("action"); //action url del formulario
+            var request_method = $(this).attr("method"); //método GET/POST del formulario
+            var form_data = $(this).serializeArray(); //Codificando elementos de formulario para su envío
+            console.log(form_data);
+            LoadingOverlayShow("#frmSEM_ACTIVIDAD"); /* MOSTRAR estado de carga   */
+            $.ajax({
+                url: post_url,
+                type: request_method,
+                data: form_data
+            }).done(function (response) { //
+                console.log(response);
+                LoadingOverlayHide("#frmSEM_ACTIVIDAD"); /*   OCULTAR estado de carga   */
+                if (response.ok) {
+                    alert("Asignación modificada correctamente.");
+                    window.location = response.toRedirect;
+                }
+                else {
+                    alert(response.msg);
+                }
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                LoadingOverlayHide("#frmSEM_ACTIVIDAD");
+            });
+        });
+    </script>
+}

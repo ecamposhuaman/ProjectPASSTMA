@@ -1,0 +1,66 @@
+﻿@model ENTIDAD.SEMCE
+
+@{
+    ViewBag.Title = "Jefatura";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Jefatura</h2>
+
+<div>
+    <h4>Detalle de Jefatura</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            ID
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdSEM)
+        </dd>
+
+        <dt>
+            NOMBRE
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreSEM)
+        </dd>
+
+        <dt>
+            S.E./GERENCIA
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreUUNN)
+        </dd>
+
+        <dt>
+            UN/SEM
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreSEDE)
+        </dd>
+
+        <dt>
+            RESPONSABLE
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreResponsable)
+        </dd>
+
+        <dt>
+            ES SEDE
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EsPrincipal)
+        </dd>
+    </dl>
+</div>
+<p>
+    <a class="btn btn-default" href="@Url.Action("Index", "SEM")"><i class="glyphicon glyphicon-menu-left"></i>Volver</a>
+    <a class="btn btn-info" href="@Url.Action("Editar", "SEM", new { id = Model.IdSEM })">Editar</a>
+</p>

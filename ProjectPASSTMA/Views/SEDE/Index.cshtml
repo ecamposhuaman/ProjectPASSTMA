@@ -1,0 +1,37 @@
+﻿@model IEnumerable<ENTIDAD.SEDE>
+
+@{
+    ViewBag.Title = "UN/SEM";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>UN/SEM</h2>
+<p>
+    <a class="btn btn-success" href="@Url.Action("Crear", "SEDE")"><i class="glyphicon glyphicon-plus"></i>Crear Nuevo</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            ID
+        </th>
+        <th>
+            NOMBRE
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @item.IdSEDE
+        </td>
+        <td>
+            @item.NombreSEDE
+        </td>
+        <td>
+            <a class="btn btn-primary btn-xs" href="@Url.Action("Editar", "SEDE", new { id = item.IdSEDE })" title="Editar"><i class="glyphicon glyphicon-pencil"></i></a>
+            <a class="btn btn-danger btn-xs" href="@Url.Action("Eliminar", "SEDE", new { id = item.IdSEDE })" title="Eliminar"><i class="glyphicon glyphicon-trash"></i></a>
+        </td>
+    </tr>
+}
+
+</table>
